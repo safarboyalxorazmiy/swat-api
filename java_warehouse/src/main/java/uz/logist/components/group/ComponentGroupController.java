@@ -19,6 +19,4 @@ public class ComponentGroupController {
   private ResponseEntity<Boolean> create(@RequestBody ComponentsGroupCreateDTO createDTO) {
     return ResponseEntity.ok(componentsGroupService.create(createDTO));
   }
-
-  // Detallarni guruhlash tamom endi
 }
