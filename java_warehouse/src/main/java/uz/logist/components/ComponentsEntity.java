@@ -53,4 +53,7 @@ public class ComponentsEntity {
 
     @Column
     private Integer income;
+
+    @Column
+    private Boolean isMultiple;
 }

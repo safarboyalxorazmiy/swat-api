@@ -18,30 +18,17 @@ public class ComponentsGroupEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column
-  private String code;
+  @Column(name = "composite_id")
+  private Long composite;
 
-  @Column
-  private String name;
+  @ManyToOne
+  @JoinColumn(name = "composite_id", insertable = false, updatable = false)
+  private ComponentsEntity compositeEntity;
 
-  @Column
-  private Long checkpoint;
+  @Column(name = "component_id")
+  private Long componentId;
 
-  @Column
-  private String unit;
-
-  @Column
-  private String specs;
-
-  @Column
-  private Integer status;
-
-  @Column
-  private String photo;
-
-  @Column
-  private LocalDateTime createdDate = LocalDateTime.now();
-
-  @Column
-  private Double weight;
+  @ManyToOne
+  @JoinColumn(name = "component_id", insertable = false, updatable = false)
+  private ComponentsEntity componentsEntity;
 }
