@@ -3,6 +3,7 @@ package uz.logist.components.group;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import uz.logist.components.group.dtos.CompositeComponentDeleteDTO;
 import uz.logist.components.group.dtos.CompositeComponentEditDTO;
 import uz.logist.components.group.dtos.CompositeComponentInfoDTO;
 
@@ -27,7 +28,13 @@ public class ComponentGroupController {
 
   //  DONE (CompositeId orqali unga ketadigan detallarni o'zgartirish uchun api yozish.)
   @PutMapping("/edit")
-  public ResponseEntity<Boolean> editGroup(@RequestBody CompositeComponentEditDTO editDTO) {
-    return ResponseEntity.ok(componentsGroupService.editGroup(editDTO));
+  public ResponseEntity<Boolean> editCompositeComponent(@RequestBody CompositeComponentEditDTO editDTO) {
+    return ResponseEntity.ok(componentsGroupService.editCompositeComponent(editDTO));
+  }
+
+  // DONE (Composite ichidagi componentni o'chirish uchun api yozish.)
+  @DeleteMapping("/delete")
+  public ResponseEntity<Boolean> deleteGroup(@RequestBody CompositeComponentDeleteDTO deleteDTO) {
+    return ResponseEntity.ok(componentsGroupService.deleteCompositeComponent(deleteDTO));
   }
 }

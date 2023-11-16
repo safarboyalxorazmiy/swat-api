@@ -2,6 +2,7 @@ package uz.logist.components.group;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import uz.logist.components.group.dtos.CompositeComponentDeleteDTO;
 import uz.logist.components.group.dtos.CompositeComponentEditDTO;
 import uz.logist.components.group.dtos.CompositeComponentInfoDTO;
 
@@ -45,7 +46,7 @@ public class ComponentsGroupService {
     return result;
   }
 
-  public Boolean editGroup(CompositeComponentEditDTO editDTO) {
+  public Boolean editCompositeComponent(CompositeComponentEditDTO editDTO) {
     Optional<ComponentsGroupEntity> byCompositeIdAndComponentId = componentsGroupRepository.findByCompositeIdAndComponentId(editDTO.getCompositeId(), editDTO.getComponentId());
     if (byCompositeIdAndComponentId.isEmpty()) {
       return false;
@@ -54,6 +55,17 @@ public class ComponentsGroupService {
     ComponentsGroupEntity componentsGroup = byCompositeIdAndComponentId.get();
     componentsGroup.setQuantity(editDTO.getQuantity());
     componentsGroupRepository.save(componentsGroup);
+    return true;
+  }
+
+  public Boolean deleteCompositeComponent(CompositeComponentDeleteDTO deleteDTO) {
+    Optional<ComponentsGroupEntity> byCompositeIdAndComponentId = componentsGroupRepository.findByCompositeIdAndComponentId(deleteDTO.getCompositeId(), deleteDTO.getComponentId());
+    if (byCompositeIdAndComponentId.isEmpty()) {
+      return false;
+    }
+
+    ComponentsGroupEntity componentsGroup = byCompositeIdAndComponentId.get();
+    componentsGroupRepository.delete(componentsGroup);
     return true;
   }
 }
