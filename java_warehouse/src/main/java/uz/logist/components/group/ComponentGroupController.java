@@ -2,11 +2,11 @@ package uz.logist.components.group;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import uz.logist.components.group.dtos.CompositeComponentEditDTO;
+import uz.logist.components.group.dtos.CompositeComponentInfoDTO;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/components/group")
@@ -14,9 +14,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class ComponentGroupController {
   private final ComponentsGroupService componentsGroupService;
 
-  @PreAuthorize("permitAll()")
   @PostMapping("/create")
-  private ResponseEntity<Boolean> create(@RequestBody ComponentsGroupCreateDTO createDTO) {
+  public ResponseEntity<Boolean> create(@RequestBody ComponentsGroupCreateDTO createDTO) {
     return ResponseEntity.ok(componentsGroupService.create(createDTO));
+  }
+
+  //  DONE (CompositeId orqali unga ketadigan detallarni olish.)
+  @GetMapping("/get/{compositeId}")
+  public ResponseEntity<List<CompositeComponentInfoDTO>> getComponents(@PathVariable Long compositeId) {
+    return ResponseEntity.ok(componentsGroupService.getComponentsByCompositeId(compositeId));
+  }
+
+  //  DONE (CompositeId orqali unga ketadigan detallarni o'zgartirish uchun api yozish.)
+  @PutMapping("/edit")
+  public ResponseEntity<Boolean> editGroup(@RequestBody CompositeComponentEditDTO editDTO) {
+    return ResponseEntity.ok(componentsGroupService.editGroup(editDTO));
   }
 }

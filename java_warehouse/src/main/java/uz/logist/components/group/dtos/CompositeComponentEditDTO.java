@@ -1,13 +1,11 @@
-package uz.logist.components.group;
+package uz.logist.components.group.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
-public class ComponentsGroupCreateDTO {
+public class CompositeComponentEditDTO {
   private Long compositeId;
   private Long componentId;
   private Double quantity;

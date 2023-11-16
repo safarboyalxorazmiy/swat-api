@@ -19,16 +19,18 @@ public class ComponentsGroupEntity {
   private Long id;
 
   @Column(name = "composite_id")
-  private Long composite;
+  private Long compositeId;
 
   @ManyToOne
   @JoinColumn(name = "composite_id", insertable = false, updatable = false)
-  private ComponentsEntity compositeEntity;
+  private ComponentsEntity composite;
 
   @Column(name = "component_id")
   private Long componentId;
 
   @ManyToOne
   @JoinColumn(name = "component_id", insertable = false, updatable = false)
-  private ComponentsEntity componentsEntity;
+  private ComponentsEntity component;
+
+  private Double quantity;
 }
