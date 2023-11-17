@@ -9,7 +9,7 @@
 		<relativePath/>
 	</parent>
 	<groupId>uz.logist</groupId>
-	<artifactId>logist</artifactId>
+	<artifactId>jarvis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>security</name>
 	<description>Demo project for Spring Boot</description>
