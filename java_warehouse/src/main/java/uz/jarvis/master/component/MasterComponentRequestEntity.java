@@ -34,12 +34,14 @@ public class MasterComponentRequestEntity {
   @JoinColumn(name = "master_id", insertable = false, updatable = false)
   private User master;
 
-  @Column(name = "logist_id")
-  private Long logistId;
+  @Column(name = "from_id")
+  private Long fromId;
 
   @ManyToOne
-  @JoinColumn(name = "logist_id", insertable = false, updatable = false)
-  private User logist;
+  @JoinColumn(name = "from_id", insertable = false, updatable = false)
+  private User from;
+
+  private FROM fromType;
 
   @Column
   private Boolean verified;

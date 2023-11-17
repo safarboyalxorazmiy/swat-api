@@ -29,6 +29,14 @@ public class MasterComponentController {
     return ResponseEntity.ok(result);
   }
 
+  @PreAuthorize("permitAll()")
+  @PostMapping("/component/submit/from/master")
+  public ResponseEntity<Boolean> submitComponentRequestFromMaster(@RequestBody MasterComponentRequestSumbitDTO dto) {
+    System.out.println(dto);
+    Boolean result = masterComponentRequestService.submitComponentFromMaster(dto, getUserId());
+    return ResponseEntity.ok(result);
+  }
+
   @GetMapping("/get/info")
   public ResponseEntity<List<MasterInfoDTO>> getMasters() {
     List<MasterInfoDTO> result = masterComponentRequestService.getAllMastersInfo();

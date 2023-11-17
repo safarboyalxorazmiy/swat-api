@@ -51,6 +51,7 @@ public class SecurityConfiguration {
       .permitAll()
       .requestMatchers(
         "/master/**",
+        "/master/component/**",
         "/master/line/**",
         "/logist/component/**"
       )
