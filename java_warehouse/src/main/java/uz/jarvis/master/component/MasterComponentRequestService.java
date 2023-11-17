@@ -8,6 +8,7 @@ import uz.jarvis.lines.entity.*;
 import uz.jarvis.lines.repository.*;
 import uz.jarvis.logist.component.LogistComponentEntity;
 import uz.jarvis.logist.component.LogistComponentRepository;
+import uz.jarvis.logist.component.dto.LogistComponentInfoDTO;
 import uz.jarvis.master.component.dto.MasterComponentInfoDTO;
 import uz.jarvis.master.component.dto.MasterComponentRequestSumbitDTO;
 import uz.jarvis.master.component.dto.MasterInfoDTO;
@@ -337,7 +338,7 @@ public class MasterComponentRequestService {
     return true;
   }
 
-  public List<MasterComponentInfoDTO> getComponentsInfoByLogistId(Long masterId) {
+  public List<MasterComponentInfoDTO> getComponentsInfoByMasterId(Long masterId) {
     Optional<MasterLineEntity> byMasterId =
         masterLineRepository.findByMasterId(masterId);
     if (byMasterId.isEmpty()) {
@@ -550,6 +551,245 @@ public class MasterComponentRequestService {
       case 27 -> {
         List<Checkpoint27Entity> all =
             checkpoint27Repository.findAll();
+        List<MasterComponentInfoDTO> result = new ArrayList<>();
+        for (Checkpoint27Entity checkpoint : all) {
+          MasterComponentInfoDTO dto = new MasterComponentInfoDTO();
+          dto.setId(checkpoint.getId());
+
+          dto.setComponentId(checkpoint.getComponentId());
+          dto.setComponentCode(checkpoint.getComponent().getCode());
+          dto.setComponentName(checkpoint.getComponent().getName());
+          dto.setComponentSpecs(checkpoint.getComponent().getSpecs());
+
+          dto.setQuantity(checkpoint.getQuantity());
+          dto.setMasterId(masterId);
+          result.add(dto);
+        }
+
+        return result;
+      }
+    }
+
+    return null;
+  }
+
+  public List<MasterComponentInfoDTO> search(Long masterId, String searchQuery) {
+
+    searchQuery = searchQuery + "%";
+
+    Optional<MasterLineEntity> byMasterId =
+      masterLineRepository.findByMasterId(masterId);
+    if (byMasterId.isEmpty()) {
+      return null;
+    }
+
+    MasterLineEntity masterLineEntity = byMasterId.get();
+    Integer lineId = masterLineEntity.getLineId();
+
+    switch (lineId) {
+      case 1 -> {
+        List<Checkpoint1Entity> all =
+          checkpoint1Repository.search(searchQuery);
+        List<MasterComponentInfoDTO> result = new ArrayList<>();
+        for (Checkpoint1Entity checkpoint : all) {
+          MasterComponentInfoDTO dto = new MasterComponentInfoDTO();
+          dto.setId(checkpoint.getId());
+
+          dto.setComponentId(checkpoint.getComponentId());
+          dto.setComponentCode(checkpoint.getComponent().getCode());
+          dto.setComponentName(checkpoint.getComponent().getName());
+          dto.setComponentSpecs(checkpoint.getComponent().getSpecs());
+
+          dto.setQuantity(checkpoint.getQuantity());
+          dto.setMasterId(masterId);
+          result.add(dto);
+        }
+
+        return result;
+      }
+      case 2 -> {
+        List<Checkpoint2Entity> all =
+          checkpoint2Repository.search(searchQuery);
+        List<MasterComponentInfoDTO> result = new ArrayList<>();
+        for (Checkpoint2Entity checkpoint : all) {
+          MasterComponentInfoDTO dto = new MasterComponentInfoDTO();
+          dto.setId(checkpoint.getId());
+
+          dto.setComponentId(checkpoint.getComponentId());
+          dto.setComponentCode(checkpoint.getComponent().getCode());
+          dto.setComponentName(checkpoint.getComponent().getName());
+          dto.setComponentSpecs(checkpoint.getComponent().getSpecs());
+
+          dto.setQuantity(checkpoint.getQuantity());
+          dto.setMasterId(masterId);
+          result.add(dto);
+        }
+
+        return result;
+      }
+      case 9 -> {
+        List<Checkpoint9Entity> all =
+          checkpoint9Repository.search(searchQuery);
+        List<MasterComponentInfoDTO> result = new ArrayList<>();
+        for (Checkpoint9Entity checkpoint : all) {
+          MasterComponentInfoDTO dto = new MasterComponentInfoDTO();
+          dto.setId(checkpoint.getId());
+
+          dto.setComponentId(checkpoint.getComponentId());
+          dto.setComponentCode(checkpoint.getComponent().getCode());
+          dto.setComponentName(checkpoint.getComponent().getName());
+          dto.setComponentSpecs(checkpoint.getComponent().getSpecs());
+
+          dto.setQuantity(checkpoint.getQuantity());
+          dto.setMasterId(masterId);
+          result.add(dto);
+        }
+
+        return result;
+      }
+      case 10 -> {
+        List<Checkpoint10Entity> all =
+          checkpoint10Repository.search(searchQuery);
+        List<MasterComponentInfoDTO> result = new ArrayList<>();
+        for (Checkpoint10Entity checkpoint : all) {
+          MasterComponentInfoDTO dto = new MasterComponentInfoDTO();
+          dto.setId(checkpoint.getId());
+
+          dto.setComponentId(checkpoint.getComponentId());
+          dto.setComponentCode(checkpoint.getComponent().getCode());
+          dto.setComponentName(checkpoint.getComponent().getName());
+          dto.setComponentSpecs(checkpoint.getComponent().getSpecs());
+
+          dto.setQuantity(checkpoint.getQuantity());
+          dto.setMasterId(masterId);
+          result.add(dto);
+        }
+
+        return result;
+      }
+      case 11 -> {
+        List<Checkpoint11Entity> all =
+          checkpoint11Repository.search(searchQuery);
+        List<MasterComponentInfoDTO> result = new ArrayList<>();
+        for (Checkpoint11Entity checkpoint : all) {
+          MasterComponentInfoDTO dto = new MasterComponentInfoDTO();
+          dto.setId(checkpoint.getId());
+
+          dto.setComponentId(checkpoint.getComponentId());
+          dto.setComponentCode(checkpoint.getComponent().getCode());
+          dto.setComponentName(checkpoint.getComponent().getName());
+          dto.setComponentSpecs(checkpoint.getComponent().getSpecs());
+
+          dto.setQuantity(checkpoint.getQuantity());
+          dto.setMasterId(masterId);
+          result.add(dto);
+        }
+
+        return result;
+      }
+      case 12 -> {
+        List<Checkpoint12Entity> all =
+          checkpoint12Repository.search(searchQuery);
+        List<MasterComponentInfoDTO> result = new ArrayList<>();
+        for (Checkpoint12Entity checkpoint : all) {
+          MasterComponentInfoDTO dto = new MasterComponentInfoDTO();
+          dto.setId(checkpoint.getId());
+
+          dto.setComponentId(checkpoint.getComponentId());
+          dto.setComponentCode(checkpoint.getComponent().getCode());
+          dto.setComponentName(checkpoint.getComponent().getName());
+          dto.setComponentSpecs(checkpoint.getComponent().getSpecs());
+
+          dto.setQuantity(checkpoint.getQuantity());
+          dto.setMasterId(masterId);
+          result.add(dto);
+        }
+
+        return result;
+      }
+      case 13 -> {
+        List<Checkpoint13Entity> all =
+          checkpoint13Repository.search(searchQuery);
+        List<MasterComponentInfoDTO> result = new ArrayList<>();
+        for (Checkpoint13Entity checkpoint : all) {
+          MasterComponentInfoDTO dto = new MasterComponentInfoDTO();
+          dto.setId(checkpoint.getId());
+
+          dto.setComponentId(checkpoint.getComponentId());
+          dto.setComponentCode(checkpoint.getComponent().getCode());
+          dto.setComponentName(checkpoint.getComponent().getName());
+          dto.setComponentSpecs(checkpoint.getComponent().getSpecs());
+
+          dto.setQuantity(checkpoint.getQuantity());
+          dto.setMasterId(masterId);
+          result.add(dto);
+        }
+
+        return result;
+      }
+      case 19 -> {
+        List<Checkpoint19Entity> all =
+          checkpoint19Repository.search(searchQuery);
+        List<MasterComponentInfoDTO> result = new ArrayList<>();
+        for (Checkpoint19Entity checkpoint : all) {
+          MasterComponentInfoDTO dto = new MasterComponentInfoDTO();
+          dto.setId(checkpoint.getId());
+
+          dto.setComponentId(checkpoint.getComponentId());
+          dto.setComponentCode(checkpoint.getComponent().getCode());
+          dto.setComponentName(checkpoint.getComponent().getName());
+          dto.setComponentSpecs(checkpoint.getComponent().getSpecs());
+
+          dto.setQuantity(checkpoint.getQuantity());
+          dto.setMasterId(masterId);
+          result.add(dto);
+        }
+
+        return result;
+      }
+      case 20 -> {
+        List<Checkpoint20Entity> all =
+          checkpoint20Repository.search(searchQuery);
+        List<MasterComponentInfoDTO> result = new ArrayList<>();
+        for (Checkpoint20Entity checkpoint : all) {
+          MasterComponentInfoDTO dto = new MasterComponentInfoDTO();
+          dto.setId(checkpoint.getId());
+
+          dto.setComponentId(checkpoint.getComponentId());
+          dto.setComponentCode(checkpoint.getComponent().getCode());
+          dto.setComponentName(checkpoint.getComponent().getName());
+          dto.setComponentSpecs(checkpoint.getComponent().getSpecs());
+
+          dto.setQuantity(checkpoint.getQuantity());
+          dto.setMasterId(masterId);
+          result.add(dto);
+        }
+
+        return result;
+      }
+      case 21 -> {
+        List<Checkpoint21Entity> all =
+          checkpoint21Repository.search(searchQuery);
+        List<MasterComponentInfoDTO> result = new ArrayList<>();
+        for (Checkpoint21Entity checkpoint : all) {
+          MasterComponentInfoDTO dto = new MasterComponentInfoDTO();
+          dto.setId(checkpoint.getId());
+
+          dto.setComponentId(checkpoint.getComponentId());
+          dto.setComponentCode(checkpoint.getComponent().getCode());
+          dto.setComponentName(checkpoint.getComponent().getName());
+          dto.setComponentSpecs(checkpoint.getComponent().getSpecs());
+
+          dto.setQuantity(checkpoint.getQuantity());
+          dto.setMasterId(masterId);
+          result.add(dto);
+        }
+
+        return result;
+      }
+      case 27 -> {
+        List<Checkpoint27Entity> all =
+          checkpoint27Repository.search(searchQuery);
         List<MasterComponentInfoDTO> result = new ArrayList<>();
         for (Checkpoint27Entity checkpoint : all) {
           MasterComponentInfoDTO dto = new MasterComponentInfoDTO();

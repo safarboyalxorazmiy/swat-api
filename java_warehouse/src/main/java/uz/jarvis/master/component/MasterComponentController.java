@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import uz.jarvis.logist.component.dto.LogistComponentInfoDTO;
 import uz.jarvis.master.component.dto.MasterComponentInfoDTO;
 import uz.jarvis.master.component.dto.MasterComponentRequestSumbitDTO;
 import uz.jarvis.master.component.dto.MasterInfoDTO;
@@ -54,7 +55,14 @@ public class MasterComponentController {
 
   @GetMapping("/component/info")
   public ResponseEntity<List<MasterComponentInfoDTO>> getComponentsInfo() {
-    List<MasterComponentInfoDTO> componentsInfo = masterComponentRequestService.getComponentsInfoByLogistId(getUserId());
+    List<MasterComponentInfoDTO> componentsInfo = masterComponentRequestService.getComponentsInfoByMasterId(getUserId());
+    return ResponseEntity.ok(componentsInfo);
+  }
+
+  @GetMapping("/component/search")
+  public ResponseEntity<List<MasterComponentInfoDTO>> search(@RequestParam String search) {
+    Long masterId = getUserId();
+    List<MasterComponentInfoDTO> componentsInfo = masterComponentRequestService.search(masterId, search);
     return ResponseEntity.ok(componentsInfo);
   }
 
