@@ -17,4 +17,5 @@ public class CheckpointEntity {
   private Boolean status;
   private String photo;
   private String address;
+  private Boolean isCompositable;
 }

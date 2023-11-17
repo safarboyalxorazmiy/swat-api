@@ -59,6 +59,12 @@ public class MasterComponentController {
     return ResponseEntity.ok(componentsInfo);
   }
 
+  @GetMapping("/composite/info")
+  public ResponseEntity<List<MasterComponentInfoDTO>> getCompositesInfo() {
+    List<MasterComponentInfoDTO> componentsInfo = masterComponentRequestService.getCompositesInfoByMasterId(getUserId());
+    return ResponseEntity.ok(componentsInfo);
+  }
+
   @GetMapping("/component/search")
   public ResponseEntity<List<MasterComponentInfoDTO>> search(@RequestParam String search) {
     Long masterId = getUserId();
