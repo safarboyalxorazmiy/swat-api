@@ -5,9 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ComponentInfoDTO {
+public class LogistComponentInfoDTO {
     private Long id,
             componentId,
             logistId;
+    private String componentCode, componentName, componentSpecs;
     private Double quantity;
 }
