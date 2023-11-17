@@ -8,7 +8,7 @@
 		<version>3.0.5</version>
 		<relativePath/>
 	</parent>
-	<groupId>uz.logist</groupId>
+	<groupId>uz.jarvis</groupId>
 	<artifactId>jarvis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>security</name>

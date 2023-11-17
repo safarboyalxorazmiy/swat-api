@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LogistApplication {
+public class JarvisApplication {
   public static void main(String[] args) {
-    SpringApplication.run(LogistApplication.class, args);
+    SpringApplication.run(JarvisApplication.class, args);
   }
 }
