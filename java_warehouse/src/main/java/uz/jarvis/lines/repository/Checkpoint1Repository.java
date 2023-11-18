@@ -10,11 +10,11 @@ import java.util.Optional;
 
 @Repository
 public interface Checkpoint1Repository extends JpaRepository<Checkpoint1Entity, Long> {
-  List<Checkpoint1Entity> findByComponentIsMultipleTrue();
-  List<Checkpoint1Entity> findByComponentIsMultipleFalse();
-
   Optional<Checkpoint1Entity> findByComponentId(Long componentId);
 
   @Query("from Checkpoint1Entity where (component.code like ?1) or (component.name like ?1)")
   List<Checkpoint1Entity> search(String searchQuery);
+
+  List<Checkpoint1Entity> findByIsCreatableTrue();
+  List<Checkpoint1Entity> findByIsCreatableFalse();
 }

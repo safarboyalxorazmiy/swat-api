@@ -23,4 +23,7 @@ public class Checkpoint20Entity {
 
     @Column
     private Double quantity;
+
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private Boolean isCreatable;
 }

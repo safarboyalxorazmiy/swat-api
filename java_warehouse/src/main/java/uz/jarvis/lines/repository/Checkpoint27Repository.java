@@ -16,7 +16,6 @@ public interface Checkpoint27Repository extends JpaRepository<Checkpoint27Entity
   @Query("from Checkpoint27Entity where (component.code like ?1) or (component.name like ?1) ")
   List<Checkpoint27Entity> search(String searchQuery);
 
-  List<Checkpoint27Entity> findByComponentIsMultipleTrue();
-
-  List<Checkpoint27Entity> findByComponentIsMultipleFalse();
+  List<Checkpoint27Entity> findByIsCreatableTrue();
+  List<Checkpoint27Entity> findByIsCreatableFalse();
 }

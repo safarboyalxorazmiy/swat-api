@@ -54,6 +54,6 @@ public class ComponentsEntity {
   @Column
   private Integer income;
 
-  @Column
-  private Boolean isMultiple = false;
+  @Column(nullable = false, columnDefinition = "boolean default false", updatable = true)
+  private Boolean isMultiple;
 }
