@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/warehouse
     username: postgres
-    password: postgres
+    password: root
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -21,7 +21,7 @@ spring:
         10MB
   profiles:
     active:
-      prod
+      dev
 
 application:
   security:
@@ -33,8 +33,6 @@ application:
       refresh-token:
         expiration:
           604800000 # 7 days
-
-
 
 attach:
   upload:

@@ -3250,109 +3250,124 @@ func (r *Repo) Metall_Serial(id int) error {
 
 	count := 0
 
-	if err := r.store.db.QueryRow(`SELECT m2.code, m2."name" from public.models m2 where m2.id = $1`, id).Scan(&info.Code, &info.Name); err != nil {
+	plan := 0
+
+	if err := r.store.db.QueryRow("select plan from fridge_plan where model_id = $1", id).Scan(&plan); err != nil {
 		return err
 	}
 
-	if err := r.store.db.QueryRow("SELECT last FROM metall_serial WHERE model_id = $1", id).Scan(&count); err != nil {
-		return err
-	}
-
-	countString := ""
-	paddedCount := fmt.Sprintf("%05d", count)
-
-	countString = generateSerial(info.Code, 1, paddedCount)
-
-	characterCount := 0
-	if err := r.store.db.QueryRow("SELECT COUNT(*) FROM character_db WHERE serial = $1;", countString).Scan(&characterCount); err != nil {
-		fmt.Sprintln("SELECT COUNT(*) FROM character_db WHERE serial")
-
-		return err
-	}
-
-	if characterCount >= 28 {
-		fmt.Sprintln("Characterlar soni oshib ketti")
-		return nil
-	}
-
-	isNotCharacterExists := true
-	charsCount := 0
-
-	random := rand.New(rand.NewSource(time.Now().UnixNano()))
-	randomNumber := random.Intn(26)
-	randomAlphabet := string('A' + rune(randomNumber))
-
-	for {
-		if !isNotCharacterExists {
-			break
+	if plan != 0 {
+		if err := r.store.db.QueryRow(`SELECT m2.code, m2."name" from public.models m2 where m2.id = $1`, id).Scan(&info.Code, &info.Name); err != nil {
+			return err
 		}
 
-		if err := r.store.db.QueryRow("SELECT COUNT(*) FROM character_db WHERE character = $1 and serial = $2;", randomAlphabet, countString).Scan(&charsCount); err != nil {
-			fmt.Println("Error: SELECT COUNT(*) FROM character_db WHERE character = ;")
+		if err := r.store.db.QueryRow("SELECT last FROM metall_serial WHERE model_id = $1", id).Scan(&count); err != nil {
+			return err
+		}
+
+		countString := ""
+		paddedCount := fmt.Sprintf("%05d", count)
+
+		countString = generateSerial(info.Code, 1, paddedCount)
+
+		characterCount := 0
+		if err := r.store.db.QueryRow("SELECT COUNT(*) FROM character_db WHERE serial = $1;", countString).Scan(&characterCount); err != nil {
+			fmt.Sprintln("SELECT COUNT(*) FROM character_db WHERE serial")
 
 			return err
 		}
 
-		if charsCount != 0 {
-			random = rand.New(rand.NewSource(time.Now().UnixNano()))
-			randomNumber = random.Intn(26)
-			randomAlphabet = string('A' + rune(randomNumber))
+		if characterCount >= 28 {
+			fmt.Sprintln("Characterlar soni oshib ketti")
+			return nil
+		}
+
+		isNotCharacterExists := true
+		charsCount := 0
+
+		random := rand.New(rand.NewSource(time.Now().UnixNano()))
+		randomNumber := random.Intn(26)
+		randomAlphabet := string('A' + rune(randomNumber))
+
+		for {
+			if !isNotCharacterExists {
+				break
+			}
+
+			if err := r.store.db.QueryRow("SELECT COUNT(*) FROM character_db WHERE character = $1 and serial = $2;", randomAlphabet, countString).Scan(&charsCount); err != nil {
+				fmt.Println("Error: SELECT COUNT(*) FROM character_db WHERE character = ;")
+
+				return err
+			}
+
+			if charsCount != 0 {
+				random = rand.New(rand.NewSource(time.Now().UnixNano()))
+				randomNumber = random.Intn(26)
+				randomAlphabet = string('A' + rune(randomNumber))
+			} else {
+				isNotCharacterExists = false
+			}
+		}
+
+		seria := countString
+		countString += randomAlphabet
+
+		fmt.Println("countString: ", countString)
+		var wg sync.WaitGroup
+		wg.Add(1)
+
+		channel := make(chan string, 1)
+
+		data := []byte(fmt.Sprintf(`
+				{
+					"libraryID": "986278f7-755f-4412-940f-a89e893947de",
+					"absolutePath": "C:/inetpub/wwwroot/BarTender/wwwroot/Templates/premier/serial.btw",
+					"printRequestID": "fe80480e-1f94-4A2f-8947-e492800623aa",
+					"printer": "Gainscha GS-3405T",
+					"startingPosition": 0,
+					"copies": 0,
+					"serialNumbers": 0,
+					"dataEntryControls": {
+							"Printer": "Gainscha GS-3405T",
+							"ModelInput": "%s",
+							"SerialInput": "%s"
+					}
+				}`, info.Name, countString))
+
+		go PrintMetall(data, channel, &wg)
+
+		wg.Wait()
+		errorText1 := <-channel
+
+		if errorText1 != "ok" {
+			logrus.Error("error in printing: " + errorText1)
+			return errors.New("qaytadan urinib ko'ring")
 		} else {
-			isNotCharacterExists = false
+			// update count
+			if err := r.store.db.QueryRow(`update metall_serial set "last" = "last" + 1 where model_id = $1 returning "last" `, id).Scan(&count); err != nil {
+				return err
+			}
+
+			if err := r.store.db.QueryRow(`update fridge_plan set "plan" = "plan" - 1 where model_id = $1 returning "plan" `, id).Scan(&count); err != nil {
+				return err
+			}
+
+			lastChar := randomAlphabet
+
+			fmt.Println(lastChar)
+
+			// insert character
+			_, err := r.store.db.Exec("INSERT INTO character_db (character, serial) VALUES ($1, $2);", lastChar, seria)
+			if err != nil {
+				return err
+			}
 		}
-	}
 
-	seria := countString
-	countString += randomAlphabet
-
-	fmt.Println("countString: ", countString)
-	var wg sync.WaitGroup
-	wg.Add(1)
-
-	channel := make(chan string, 1)
-
-	data := []byte(fmt.Sprintf(`
-			{
-				"libraryID": "986278f7-755f-4412-940f-a89e893947de",
-				"absolutePath": "C:/inetpub/wwwroot/BarTender/wwwroot/Templates/premier/serial.btw",
-				"printRequestID": "fe80480e-1f94-4A2f-8947-e492800623aa",
-				"printer": "Gainscha GS-3405T",
-				"startingPosition": 0,
-				"copies": 0,
-				"serialNumbers": 0,
-				"dataEntryControls": {
-						"Printer": "Gainscha GS-3405T",
-						"ModelInput": "%s",
-						"SerialInput": "%s"
-				}
-			}`, info.Name, countString))
-
-	go PrintMetall(data, channel, &wg)
-
-	wg.Wait()
-	errorText1 := <-channel
-
-	if errorText1 != "ok" {
-		logrus.Error("error in printing: " + errorText1)
-		return errors.New("qaytadan urinib ko'ring")
-	} else {
-		// update count
-		if err := r.store.db.QueryRow(`update metall_serial set "last" = "last" + 1 where model_id = $1 returning "last" `, id).Scan(&count); err != nil {
+		if err := r.SerialInput(9, countString); err != nil {
 			return err
 		}
-		lastChar := randomAlphabet
 
-		fmt.Println(lastChar)
-
-		// insert character
-		_, err := r.store.db.Exec("INSERT INTO character_db (character, serial) VALUES ($1, $2);", lastChar, seria)
-		if err != nil {
-			return err
-		}
-	}
-
-	if err := r.SerialInput(9, countString); err != nil {
-		return err
+		return nil
 	}
 
 	return nil
