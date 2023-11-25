@@ -12,6 +12,8 @@ public interface ExchangeHistoryRepository extends JpaRepository<ExchangeHistory
   @Query("from ExchangeHistoryEntity where fromId=?1")
   List<ExchangeHistoryEntity> findByLogistId(Long masterId);
 
+  @Query("from ExchangeHistoryEntity where toId=?1 or fromId=?1")
+  List<ExchangeHistoryEntity> findByUserId(Long userId);
 
   /*
   @Query("from ExchangeHistoryEntity where " +

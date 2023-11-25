@@ -29,7 +29,7 @@ public class ExchangeHistoryService {
       ExchangeHistoryDTO dto = new ExchangeHistoryDTO();
       dto.setFrom(entity.getFromId());
       dto.setTo(entity.getToId());
-      dto.setCreatedDate(entity.getCreatedDate()); // entity.getCreatedDate()
+      dto.setCreatedDate(entity.getCreatedDate());
       dto.setExchangeType(entity.getExchangeType());
     }
 
@@ -44,10 +44,26 @@ public class ExchangeHistoryService {
       ExchangeHistoryDTO dto = new ExchangeHistoryDTO();
       dto.setFrom(entity.getFromId());
       dto.setTo(entity.getToId());
-      dto.setCreatedDate(entity.getCreatedDate()); // entity.getCreatedDate()
+      dto.setCreatedDate(entity.getCreatedDate());
       dto.setExchangeType(entity.getExchangeType());
     }
 
     return result;
   }
+
+  public List<ExchangeHistoryDTO> getExchangeHistory(Long userId) {
+    List<ExchangeHistoryEntity> byUserId = exchangeHistoryRepository.findByUserId(userId);
+
+    List<ExchangeHistoryDTO> result = new ArrayList<>();
+    for (ExchangeHistoryEntity entity : byUserId) {
+      ExchangeHistoryDTO dto = new ExchangeHistoryDTO();
+      dto.setFrom(entity.getFromId());
+      dto.setTo(entity.getToId());
+      dto.setCreatedDate(entity.getCreatedDate());
+      dto.setExchangeType(entity.getExchangeType());
+    }
+
+    return result;
+  }
+
 }
