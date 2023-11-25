@@ -1,4 +1,4 @@
-package uz.backall.service;
+package uz.jarvis.service;
 
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -6,12 +6,12 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
-import uz.backall.config.BotConfig;
-import uz.backall.fridgePlan.FridgePlanService;
-import uz.backall.models.ModelEntity;
-import uz.backall.models.ModelService;
-import uz.backall.user.Role;
-import uz.backall.user.UsersService;
+import uz.jarvis.config.BotConfig;
+import uz.jarvis.fridgePlan.FridgePlanService;
+import uz.jarvis.models.ModelEntity;
+import uz.jarvis.models.ModelService;
+import uz.jarvis.user.Role;
+import uz.jarvis.user.UsersService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -22,8 +22,8 @@ import org.telegram.telegrambots.meta.api.objects.*;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import uz.backall.user.history.Label;
-import uz.backall.user.history.UserHistoryService;
+import uz.jarvis.user.history.Label;
+import uz.jarvis.user.history.UserHistoryService;
 
 import java.util.ArrayList;
 import java.util.List;

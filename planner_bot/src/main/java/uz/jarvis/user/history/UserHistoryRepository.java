@@ -1,4 +1,4 @@
-package uz.backall.user.history;
+package uz.jarvis.user.history;
 
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;

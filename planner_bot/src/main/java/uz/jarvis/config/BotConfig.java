@@ -1,4 +1,4 @@
-package uz.backall.config;
+package uz.jarvis.config;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

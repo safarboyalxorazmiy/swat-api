@@ -1,4 +1,4 @@
-package uz.backall.user;
+package uz.jarvis.user;
 
 public class UserNotFoundException extends RuntimeException {
   public UserNotFoundException(String message) {

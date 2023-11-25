@@ -1,4 +1,4 @@
-package uz.backall.fridgePlan;
+package uz.jarvis.fridgePlan;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

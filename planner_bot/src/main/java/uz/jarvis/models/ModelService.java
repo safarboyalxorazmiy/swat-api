@@ -1,4 +1,4 @@
-package uz.backall.models;
+package uz.jarvis.models;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

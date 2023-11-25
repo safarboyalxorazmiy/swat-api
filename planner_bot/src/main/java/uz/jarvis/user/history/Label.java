@@ -1,4 +1,4 @@
-package uz.backall.user.history;
+package uz.jarvis.user.history;
 
 public enum Label {
   // AGENT LABELS

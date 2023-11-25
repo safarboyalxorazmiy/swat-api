@@ -1,5 +1,6 @@
 package uz.jarvis.auth;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import uz.jarvis.config.jwt.JwtService;
 import uz.jarvis.token.Token;
 import uz.jarvis.token.TokenRepository;
@@ -17,6 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -54,8 +57,12 @@ public class AuthenticationService {
             request.getPassword()
         )
     );
-    var user = repository.findByEmail(request.getEmail())
-        .orElseThrow();
+    Optional<User> byEmail = repository.findByEmail(request.getEmail());
+    if (byEmail.isEmpty()) {
+      throw new UsernameNotFoundException("User topilmadi!");
+    }
+
+    User user = byEmail.get();
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
     revokeAllUserTokens(user);
@@ -81,8 +88,10 @@ public class AuthenticationService {
   }
 
   private void revokeAllUserTokens(User user) {
-    var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
-    if (validUserTokens.isEmpty())
+    List<Token> validUserTokens =
+        tokenRepository.findAllValidTokenByUser(user.getId());
+
+    if (validUserTokens == null || validUserTokens.isEmpty())
       return;
     validUserTokens.forEach(token -> {
       token.setExpired(true);

@@ -1,4 +1,4 @@
-package uz.backall.user.history;
+package uz.jarvis.user.history;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

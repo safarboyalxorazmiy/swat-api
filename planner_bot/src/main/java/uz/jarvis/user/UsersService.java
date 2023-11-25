@@ -1,4 +1,4 @@
-package uz.backall.user;
+package uz.jarvis.user;
 
 import org.springframework.stereotype.Service;
 

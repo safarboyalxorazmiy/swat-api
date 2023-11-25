@@ -1,6 +1,6 @@
-package uz.backall.config;
+package uz.jarvis.config;
 
-import uz.backall.service.TelegramBot;
+import uz.jarvis.service.TelegramBot;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.ContextRefreshedEvent;

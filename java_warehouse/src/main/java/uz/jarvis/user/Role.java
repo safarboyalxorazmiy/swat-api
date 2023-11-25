@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
 public enum Role {
 
   LOGIST(Collections.emptySet()),
-  MASTER(Collections.emptySet());
+  MASTER(Collections.emptySet()),
+  ACCOUNTANT(Collections.emptySet());
 
   private final Set<Permission> permissions;
 

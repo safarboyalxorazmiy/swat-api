@@ -1,5 +1,6 @@
 package uz.jarvis.user;
 
+import lombok.*;
 import uz.jarvis.token.Token;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,10 +13,6 @@ import jakarta.persistence.Table;
 import java.util.Collection;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -74,5 +71,18 @@ public class User implements UserDetails {
   @Override
   public boolean isEnabled() {
     return true;
+  }
+
+  @Override
+  public String toString() {
+    return "User{" +
+        "id=" + id +
+        ", firstname='" + firstname + '\'' +
+        ", lastname='" + lastname + '\'' +
+        ", email='" + email + '\'' +
+        ", password='" + password + '\'' +
+        ", role=" + role +
+        ", tokens=" + tokens +
+        '}';
   }
 }

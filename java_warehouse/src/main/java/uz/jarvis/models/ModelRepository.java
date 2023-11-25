@@ -1,4 +1,4 @@
-package uz.backall.models;
+package uz.jarvis.models;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
