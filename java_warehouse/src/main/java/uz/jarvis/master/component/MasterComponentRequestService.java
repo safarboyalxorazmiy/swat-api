@@ -7,6 +7,8 @@ import uz.jarvis.components.ComponentsRepository;
 import uz.jarvis.components.group.ComponentsGroupEntity;
 import uz.jarvis.components.group.ComponentsGroupRepository;
 import uz.jarvis.components.group.dtos.CompositeComponentInfoDTO;
+import uz.jarvis.exchangeHistory.ExchangeHistoryService;
+import uz.jarvis.exchangeHistory.ExchangeType;
 import uz.jarvis.lines.entity.*;
 import uz.jarvis.lines.repository.*;
 import uz.jarvis.logist.component.LogistComponentEntity;
@@ -49,6 +51,8 @@ public class MasterComponentRequestService {
   private final Checkpoint27Repository checkpoint27Repository;
 
   private final ComponentsGroupRepository componentsGroupRepository;
+
+  private final ExchangeHistoryService exchangeHistoryService;
 
 
   public Boolean submitComponent(MasterComponentRequestSumbitDTO dto, Long logistId) {
@@ -95,6 +99,7 @@ public class MasterComponentRequestService {
 
     MasterLineEntity masterLineEntity = byMasterId.get();
     Integer lineId = masterLineEntity.getLineId();
+    Boolean result = false;
     switch (lineId) {
       case 1 -> {
         List<Checkpoint1Entity> savedComponentQuantities = new ArrayList<>();
@@ -127,7 +132,7 @@ public class MasterComponentRequestService {
         for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
           Optional<Checkpoint2Entity> byComponentId = checkpoint2Repository.findByComponentId(componentsGroupEntity.getComponentId());
           if (byComponentId.isEmpty()) {
-            return false;
+            break;
           }
 
           Checkpoint2Entity checkpointEntity = byComponentId.get();
@@ -145,7 +150,7 @@ public class MasterComponentRequestService {
         }
 
         createRequest(dto.getMasterId(), fromMasterId, FROM.MASTER, dto.getComponentId(), dto.getQuantity());
-        return true;
+        result = true;
       }
 
       case 9 -> {
@@ -153,7 +158,7 @@ public class MasterComponentRequestService {
         for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
           Optional<Checkpoint9Entity> byComponentId = checkpoint9Repository.findByComponentId(componentsGroupEntity.getComponentId());
           if (byComponentId.isEmpty()) {
-            return false;
+            break;
           }
 
           Checkpoint9Entity checkpointEntity = byComponentId.get();
@@ -172,14 +177,15 @@ public class MasterComponentRequestService {
         }
 
         createRequest(dto.getMasterId(), fromMasterId, FROM.MASTER, dto.getComponentId(), dto.getQuantity());
-        return true;
+        result = true;
       }
+
       case 10 -> {
         List<Checkpoint10Entity> savedComponentQuantities = new ArrayList<>();
         for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
           Optional<Checkpoint10Entity> byComponentId = checkpoint10Repository.findByComponentId(componentsGroupEntity.getComponentId());
           if (byComponentId.isEmpty()) {
-            return false;
+            break;
           }
 
           Checkpoint10Entity checkpointEntity = byComponentId.get();
@@ -196,7 +202,7 @@ public class MasterComponentRequestService {
           checkpoint10Repository.save(savedComponentQuantity);
         }
 
-        return true;
+        result = true;
       }
 
       case 11 -> {
@@ -204,7 +210,7 @@ public class MasterComponentRequestService {
         for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
           Optional<Checkpoint11Entity> byComponentId = checkpoint11Repository.findByComponentId(componentsGroupEntity.getComponentId());
           if (byComponentId.isEmpty()) {
-            return false;
+            break;
           }
 
           Checkpoint11Entity checkpointEntity = byComponentId.get();
@@ -222,7 +228,7 @@ public class MasterComponentRequestService {
         }
 
         createRequest(dto.getMasterId(), fromMasterId, FROM.MASTER, dto.getComponentId(), dto.getQuantity());
-        return true;
+        result = true;
       }
 
       case 12 -> {
@@ -230,7 +236,7 @@ public class MasterComponentRequestService {
         for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
           Optional<Checkpoint12Entity> byComponentId = checkpoint12Repository.findByComponentId(componentsGroupEntity.getComponentId());
           if (byComponentId.isEmpty()) {
-            return false;
+            break;
           }
 
           Checkpoint12Entity checkpointEntity = byComponentId.get();
@@ -248,7 +254,7 @@ public class MasterComponentRequestService {
         }
 
         createRequest(dto.getMasterId(), fromMasterId, FROM.MASTER, dto.getComponentId(), dto.getQuantity());
-        return true;
+        result = true;
       }
 
       case 13 -> {
@@ -256,7 +262,7 @@ public class MasterComponentRequestService {
         for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
           Optional<Checkpoint13Entity> byComponentId = checkpoint13Repository.findByComponentId(componentsGroupEntity.getComponentId());
           if (byComponentId.isEmpty()) {
-            return false;
+            break;
           }
 
           Checkpoint13Entity checkpointEntity = byComponentId.get();
@@ -274,14 +280,15 @@ public class MasterComponentRequestService {
         }
 
         createRequest(dto.getMasterId(), fromMasterId, FROM.MASTER, dto.getComponentId(), dto.getQuantity());
-        return true;
+        result = true;
       }
+
       case 19 -> {
         List<Checkpoint19Entity> savedComponentQuantities = new ArrayList<>();
         for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
           Optional<Checkpoint19Entity> byComponentId = checkpoint19Repository.findByComponentId(componentsGroupEntity.getComponentId());
           if (byComponentId.isEmpty()) {
-            return false;
+            break;
           }
 
           Checkpoint19Entity checkpointEntity = byComponentId.get();
@@ -299,7 +306,7 @@ public class MasterComponentRequestService {
         }
 
         createRequest(dto.getMasterId(), fromMasterId, FROM.MASTER, dto.getComponentId(), dto.getQuantity());
-        return true;
+        result = true;
       }
 
       case 20 -> {
@@ -307,7 +314,7 @@ public class MasterComponentRequestService {
         for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
           Optional<Checkpoint20Entity> byComponentId = checkpoint20Repository.findByComponentId(componentsGroupEntity.getComponentId());
           if (byComponentId.isEmpty()) {
-            return false;
+            break;
           }
 
           Checkpoint20Entity checkpoint20Entity = byComponentId.get();
@@ -325,7 +332,7 @@ public class MasterComponentRequestService {
         }
 
         createRequest(dto.getMasterId(), fromMasterId, FROM.MASTER, dto.getComponentId(), dto.getQuantity());
-        return true;
+        result = true;
       }
 
       case 21 -> {
@@ -333,7 +340,7 @@ public class MasterComponentRequestService {
         for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
           Optional<Checkpoint21Entity> byComponentId = checkpoint21Repository.findByComponentId(componentsGroupEntity.getComponentId());
           if (byComponentId.isEmpty()) {
-            return false;
+            break;
           }
 
           Checkpoint21Entity checkpoint21Entity = byComponentId.get();
@@ -351,14 +358,15 @@ public class MasterComponentRequestService {
         }
 
         createRequest(dto.getMasterId(), fromMasterId, FROM.MASTER, dto.getComponentId(), dto.getQuantity());
-        return true;
+        result = true;
       }
+
       case 27 -> {
         List<Checkpoint27Entity> savedComponentQuantities = new ArrayList<>();
         for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
           Optional<Checkpoint27Entity> byComponentId = checkpoint27Repository.findByComponentId(componentsGroupEntity.getComponentId());
           if (byComponentId.isEmpty()) {
-            return false;
+            break;
           }
 
           Checkpoint27Entity checkpoint27Entity = byComponentId.get();
@@ -376,13 +384,512 @@ public class MasterComponentRequestService {
         }
 
         createRequest(dto.getMasterId(), fromMasterId, FROM.MASTER, dto.getComponentId(), dto.getQuantity());
-        return true;
+        result = true;
       }
     }
 
+    return result;
+  }
+
+  public Boolean verifyRequest(Long requestId) {
+    Optional<MasterComponentRequestEntity> byId = masterComponentRequestRepository.findById(requestId);
+    if (byId.isEmpty()) {
+      return false;
+    }
+    MasterComponentRequestEntity componentRequest = byId.get();
+    Optional<MasterLineEntity> byMasterId =
+      masterLineRepository.findByMasterId(componentRequest.getMasterId());
+    if (byMasterId.isEmpty()) {
+      return false;
+    }
+
+    MasterLineEntity masterLineEntity = byMasterId.get();
+    Integer lineId = masterLineEntity.getLineId();
+    Long componentId = componentRequest.getComponentId();
+    boolean added = false;
+
+    switch (lineId) {
+      case 1 -> {
+        Optional<Checkpoint1Entity> byComponentId =
+          checkpoint1Repository.findByComponentId(componentId);
+        if (byComponentId.isEmpty()) {
+          break;
+        }
+
+        Checkpoint1Entity currentCheckpoint = byComponentId.get();
+        currentCheckpoint.setQuantity(
+          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
+        );
+        checkpoint1Repository.save(currentCheckpoint);
+        added = true;
+      }
+
+      case 2 -> {
+        Optional<Checkpoint2Entity> byComponentId =
+          checkpoint2Repository.findByComponentId(componentId);
+        if (byComponentId.isEmpty()) {
+          break;
+        }
+
+        Checkpoint2Entity currentCheckpoint = byComponentId.get();
+        currentCheckpoint.setQuantity(
+          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
+        );
+        checkpoint2Repository.save(currentCheckpoint);
+        added = true;
+        break;
+      }
+
+      case 9 -> {
+        Optional<Checkpoint9Entity> byComponentId =
+          checkpoint9Repository.findByComponentId(componentId);
+        if (byComponentId.isEmpty()) {
+          break;
+        }
+
+        Checkpoint9Entity currentCheckpoint = byComponentId.get();
+        currentCheckpoint.setQuantity(
+          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
+        );
+        checkpoint9Repository.save(currentCheckpoint);
+        added = true;
+      }
+
+      case 10 -> {
+        Optional<Checkpoint10Entity> byComponentId =
+          checkpoint10Repository.findByComponentId(componentId);
+        if (byComponentId.isEmpty()) {
+          break;
+        }
+
+        Checkpoint10Entity currentCheckpoint = byComponentId.get();
+        currentCheckpoint.setQuantity(
+          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
+        );
+        checkpoint10Repository.save(currentCheckpoint);
+        added = true;
+      }
+
+      case 11 -> {
+        Optional<Checkpoint11Entity> byComponentId =
+          checkpoint11Repository.findByComponentId(componentId);
+        if (byComponentId.isEmpty()) {
+          break;
+        }
+
+        Checkpoint11Entity currentCheckpoint = byComponentId.get();
+        currentCheckpoint.setQuantity(
+          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
+        );
+        checkpoint11Repository.save(currentCheckpoint);
+        added = true;
+      }
+
+      case 12 -> {
+        Optional<Checkpoint12Entity> byComponentId =
+          checkpoint12Repository.findByComponentId(componentId);
+        if (byComponentId.isEmpty()) {
+          break;
+        }
+
+        Checkpoint12Entity currentCheckpoint = byComponentId.get();
+        currentCheckpoint.setQuantity(
+          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
+        );
+        checkpoint12Repository.save(currentCheckpoint);
+        added = true;
+      }
+
+      case 13 -> {
+        Optional<Checkpoint13Entity> byComponentId =
+          checkpoint13Repository.findByComponentId(componentId);
+        if (byComponentId.isEmpty()) {
+          break;
+        }
+
+        Checkpoint13Entity currentCheckpoint = byComponentId.get();
+        currentCheckpoint.setQuantity(
+          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
+        );
+        checkpoint13Repository.save(currentCheckpoint);
+        added = true;
+      }
+
+      case 19 -> {
+        Optional<Checkpoint19Entity> byComponentId =
+          checkpoint19Repository.findByComponentId(componentId);
+        if (byComponentId.isEmpty()) {
+          break;
+        }
+
+        Checkpoint19Entity currentCheckpoint = byComponentId.get();
+        currentCheckpoint.setQuantity(
+          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
+        );
+        checkpoint19Repository.save(currentCheckpoint);
+        added = true;
+      }
+
+      case 20 -> {
+        Optional<Checkpoint20Entity> byComponentId =
+          checkpoint20Repository.findByComponentId(componentId);
+        if (byComponentId.isEmpty()) {
+          break;
+        }
+
+        Checkpoint20Entity currentCheckpoint = byComponentId.get();
+        currentCheckpoint.setQuantity(
+          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
+        );
+        checkpoint20Repository.save(currentCheckpoint);
+        added = true;
+      }
+
+      case 21 -> {
+        Optional<Checkpoint21Entity> byComponentId =
+          checkpoint21Repository.findByComponentId(componentId);
+        if (byComponentId.isEmpty()) {
+          break;
+        }
+
+        Checkpoint21Entity currentCheckpoint = byComponentId.get();
+        currentCheckpoint.setQuantity(
+          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
+        );
+        checkpoint21Repository.save(currentCheckpoint);
+        added = true;
+      }
+
+      case 27 -> {
+        Optional<Checkpoint27Entity> byComponentId =
+          checkpoint27Repository.findByComponentId(componentId);
+        if (byComponentId.isEmpty()) {
+          break;
+        }
+
+        Checkpoint27Entity currentCheckpoint = byComponentId.get();
+        currentCheckpoint.setQuantity(
+          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
+        );
+        checkpoint27Repository.save(currentCheckpoint);
+        added = true;
+      }
+    }
+
+    if (added) {
+      componentRequest.setVerified(true);
+      masterComponentRequestRepository.save(componentRequest);
+
+      exchangeHistoryService.create(
+        ExchangeType.REQUEST_ACCEPTED,
+        componentRequest.getFromId(),
+        componentRequest.getMasterId()
+      );
+
+      return added;
+    }
 
     return false;
   }
+
+  public Boolean cancelRequest(Long requestId) {
+    // REQUEST EXISTS??
+    Optional<MasterComponentRequestEntity> byRequestId = masterComponentRequestRepository.findById(requestId);
+    if (byRequestId.isEmpty()) {
+      return false;
+    }
+
+    // DELETE REQUEST
+    MasterComponentRequestEntity componentRequest = byRequestId.get();
+    if (componentRequest.getFromType().equals(FROM.LOGIST)) {
+      // SET AVAILABLE IN WAREHOUSE
+      Optional<LogistComponentEntity> byId = logistComponentRepository.findByComponentIdAndLogistId(
+        componentRequest.getComponentId(), componentRequest.getFromId()
+      );
+      if (byId.isEmpty()) {
+        return false;
+      }
+
+      LogistComponentEntity componentsEntity = byId.get();
+      componentsEntity.setQuantity(componentsEntity.getQuantity() + componentRequest.getQuantity());
+      logistComponentRepository.save(componentsEntity);
+
+      masterComponentRequestRepository.delete(componentRequest);
+
+      exchangeHistoryService.create(
+        ExchangeType.REQUEST_CANCELED,
+        componentRequest.getFromId(),
+        componentRequest.getMasterId()
+      );
+
+      return true;
+    }
+
+    if (componentRequest.getFromType().equals(FROM.MASTER)) {
+      Long fromMasterId = componentRequest.getFromId();
+      Optional<MasterLineEntity> byMasterId =
+        masterLineRepository.findByMasterId(fromMasterId);
+      if (byMasterId.isEmpty()) {
+        return false;
+      }
+
+      Long compositeId = componentRequest.getComponentId();
+      List<ComponentsGroupEntity> byCompositeId = componentsGroupRepository.findByCompositeId(compositeId);
+
+      MasterLineEntity masterLineEntity = byMasterId.get();
+      Integer lineId = masterLineEntity.getLineId();
+      Boolean result = false;
+      switch (lineId) {
+        case 1 -> {
+          List<Checkpoint1Entity> savedComponentQuantities = new ArrayList<>();
+          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
+            Optional<Checkpoint1Entity> byComponentId = checkpoint1Repository.findByComponentId(componentsGroupEntity.getComponentId());
+            if (byComponentId.isEmpty()) {
+              break;
+            }
+
+            Checkpoint1Entity checkpointEntity = byComponentId.get();
+            double addedQuantity = checkpointEntity.getQuantity() + componentRequest.getQuantity();
+            checkpointEntity.setQuantity(addedQuantity);
+
+            savedComponentQuantities.add(checkpointEntity);
+          }
+
+          for (Checkpoint1Entity savedComponentQuantity : savedComponentQuantities) {
+            checkpoint1Repository.save(savedComponentQuantity);
+          }
+          result = true;
+        }
+
+        case 2 -> {
+          List<Checkpoint2Entity> savedComponentQuantities = new ArrayList<>();
+          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
+            Optional<Checkpoint2Entity> byComponentId = checkpoint2Repository.findByComponentId(componentsGroupEntity.getComponentId());
+            if (byComponentId.isEmpty()) {
+              break;
+            }
+
+            Checkpoint2Entity checkpointEntity = byComponentId.get();
+            double addedQuantity = checkpointEntity.getQuantity() + (componentsGroupEntity.getQuantity() * componentRequest.getQuantity());
+            checkpointEntity.setQuantity(addedQuantity);
+
+            savedComponentQuantities.add(checkpointEntity);
+          }
+
+          for (Checkpoint2Entity savedComponentQuantity : savedComponentQuantities) {
+            checkpoint2Repository.save(savedComponentQuantity);
+          }
+          result = true;
+        }
+
+        case 9 -> {
+          List<Checkpoint9Entity> savedComponentQuantities = new ArrayList<>();
+          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
+            Optional<Checkpoint9Entity> byComponentId = checkpoint9Repository.findByComponentId(componentsGroupEntity.getComponentId());
+            if (byComponentId.isEmpty()) {
+              break;
+            }
+
+            Checkpoint9Entity checkpointEntity = byComponentId.get();
+            double addedQuantity = checkpointEntity.getQuantity() + componentRequest.getQuantity();
+            checkpointEntity.setQuantity(addedQuantity);
+
+            savedComponentQuantities.add(checkpointEntity);
+          }
+
+          for (Checkpoint9Entity savedComponentQuantity : savedComponentQuantities) {
+            checkpoint9Repository.save(savedComponentQuantity);
+          }
+
+          result = true;
+        }
+
+        case 10 -> {
+          List<Checkpoint10Entity> savedComponentQuantities = new ArrayList<>();
+          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
+            Optional<Checkpoint10Entity> byComponentId =
+              checkpoint10Repository.findByComponentId(componentsGroupEntity.getComponentId());
+            if (byComponentId.isEmpty()) {
+              break;
+            }
+
+            Checkpoint10Entity checkpointEntity = byComponentId.get();
+            double addedQuantity = checkpointEntity.getQuantity() + componentRequest.getQuantity();
+            checkpointEntity.setQuantity(addedQuantity);
+
+            savedComponentQuantities.add(checkpointEntity);
+          }
+
+          for (Checkpoint10Entity savedComponentQuantity : savedComponentQuantities) {
+            checkpoint10Repository.save(savedComponentQuantity);
+          }
+
+          result = true;
+        }
+
+        case 11 -> {
+          List<Checkpoint11Entity> savedComponentQuantities = new ArrayList<>();
+          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
+            Optional<Checkpoint11Entity> byComponentId = checkpoint11Repository.findByComponentId(componentsGroupEntity.getComponentId());
+            if (byComponentId.isEmpty()) {
+              break;
+            }
+
+            Checkpoint11Entity checkpointEntity = byComponentId.get();
+            double addedQuantity = checkpointEntity.getQuantity() + componentRequest.getQuantity();
+            checkpointEntity.setQuantity(addedQuantity);
+            savedComponentQuantities.add(checkpointEntity);
+          }
+
+          for (Checkpoint11Entity savedComponentQuantity : savedComponentQuantities) {
+            checkpoint11Repository.save(savedComponentQuantity);
+          }
+
+          result = true;
+        }
+
+        case 12 -> {
+          List<Checkpoint12Entity> savedComponentQuantities = new ArrayList<>();
+          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
+            Optional<Checkpoint12Entity> byComponentId = checkpoint12Repository.findByComponentId(componentsGroupEntity.getComponentId());
+            if (byComponentId.isEmpty()) {
+              break;
+            }
+
+            Checkpoint12Entity checkpointEntity = byComponentId.get();
+            double addedQuantity = checkpointEntity.getQuantity() + componentRequest.getQuantity();
+            checkpointEntity.setQuantity(addedQuantity);
+            savedComponentQuantities.add(checkpointEntity);
+          }
+
+          for (Checkpoint12Entity savedComponentQuantity : savedComponentQuantities) {
+            checkpoint12Repository.save(savedComponentQuantity);
+          }
+
+          result = true;
+        }
+
+        case 13 -> {
+          List<Checkpoint13Entity> savedComponentQuantities = new ArrayList<>();
+          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
+            Optional<Checkpoint13Entity> byComponentId = checkpoint13Repository.findByComponentId(componentsGroupEntity.getComponentId());
+            if (byComponentId.isEmpty()) {
+              break;
+            }
+
+            Checkpoint13Entity checkpointEntity = byComponentId.get();
+            double addedQuantity = checkpointEntity.getQuantity() + componentRequest.getQuantity();
+            checkpointEntity.setQuantity(addedQuantity);
+            savedComponentQuantities.add(checkpointEntity);
+          }
+
+          for (Checkpoint13Entity savedComponentQuantity : savedComponentQuantities) {
+            checkpoint13Repository.save(savedComponentQuantity);
+          }
+
+          result = true;
+        }
+
+        case 19 -> {
+          List<Checkpoint19Entity> savedComponentQuantities = new ArrayList<>();
+          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
+            Optional<Checkpoint19Entity> byComponentId = checkpoint19Repository.findByComponentId(componentsGroupEntity.getComponentId());
+            if (byComponentId.isEmpty()) {
+              break;
+            }
+
+            Checkpoint19Entity checkpointEntity = byComponentId.get();
+            double addedQuantity = checkpointEntity.getQuantity() + componentRequest.getQuantity();
+            checkpointEntity.setQuantity(addedQuantity);
+            savedComponentQuantities.add(checkpointEntity);
+          }
+
+          for (Checkpoint19Entity savedComponentQuantity : savedComponentQuantities) {
+            checkpoint19Repository.save(savedComponentQuantity);
+          }
+
+          result = true;
+        }
+
+        case 20 -> {
+          List<Checkpoint20Entity> savedComponentQuantities = new ArrayList<>();
+          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
+            Optional<Checkpoint20Entity> byComponentId = checkpoint20Repository.findByComponentId(componentsGroupEntity.getComponentId());
+            if (byComponentId.isEmpty()) {
+              break;
+            }
+
+            Checkpoint20Entity checkpoint20Entity = byComponentId.get();
+            double addedQuantity = checkpoint20Entity.getQuantity() + componentRequest.getQuantity();
+            checkpoint20Entity.setQuantity(addedQuantity);
+            savedComponentQuantities.add(checkpoint20Entity);
+          }
+
+          for (Checkpoint20Entity savedComponentQuantity : savedComponentQuantities) {
+            checkpoint20Repository.save(savedComponentQuantity);
+          }
+
+          result = true;
+        }
+
+        case 21 -> {
+          List<Checkpoint21Entity> savedComponentQuantities = new ArrayList<>();
+          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
+            Optional<Checkpoint21Entity> byComponentId = checkpoint21Repository.findByComponentId(componentsGroupEntity.getComponentId());
+            if (byComponentId.isEmpty()) {
+              break;
+            }
+
+            Checkpoint21Entity checkpoint21Entity = byComponentId.get();
+            double addedQuantity = checkpoint21Entity.getQuantity() + componentRequest.getQuantity();
+            checkpoint21Entity.setQuantity(addedQuantity);
+            savedComponentQuantities.add(checkpoint21Entity);
+          }
+
+          for (Checkpoint21Entity savedComponentQuantity : savedComponentQuantities) {
+            checkpoint21Repository.save(savedComponentQuantity);
+          }
+
+          result = true;
+        }
+
+        case 27 -> {
+          List<Checkpoint27Entity> savedComponentQuantities = new ArrayList<>();
+          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
+            Optional<Checkpoint27Entity> byComponentId = checkpoint27Repository.findByComponentId(componentsGroupEntity.getComponentId());
+            if (byComponentId.isEmpty()) {
+              break;
+            }
+
+            Checkpoint27Entity checkpoint27Entity = byComponentId.get();
+            double addedQuantity = checkpoint27Entity.getQuantity() + componentRequest.getQuantity();
+            checkpoint27Entity.setQuantity(addedQuantity);
+            savedComponentQuantities.add(checkpoint27Entity);
+          }
+
+          for (Checkpoint27Entity savedComponentQuantity : savedComponentQuantities) {
+            checkpoint27Repository.save(savedComponentQuantity);
+          }
+
+          result = true;
+        }
+      }
+
+      if (result) {
+        exchangeHistoryService.create(
+          ExchangeType.REQUEST_CANCELED,
+          componentRequest.getFromId(),
+          componentRequest.getMasterId()
+        );
+      }
+
+      return result;
+    }
+
+    return false;
+  }
+
+
 
   public List<MasterInfoDTO> getAllMastersInfo() {
     List<User> byRoleLogist = userRepository.findByRole(Role.MASTER);
@@ -415,475 +922,6 @@ public class MasterComponentRequestService {
     }
 
     return result;
-  }
-
-  public Boolean verifyRequest(Long requestId) {
-    Optional<MasterComponentRequestEntity> byId = masterComponentRequestRepository.findById(requestId);
-    if (byId.isEmpty()) {
-      return false;
-    }
-    MasterComponentRequestEntity componentRequest = byId.get();
-    Optional<MasterLineEntity> byMasterId =
-      masterLineRepository.findByMasterId(componentRequest.getMasterId());
-    if (byMasterId.isEmpty()) {
-      return false;
-    }
-
-    MasterLineEntity masterLineEntity = byMasterId.get();
-    Integer lineId = masterLineEntity.getLineId();
-    Long componentId = componentRequest.getComponentId();
-    boolean added = false;
-
-    switch (lineId) {
-      case 1 -> {
-        Optional<Checkpoint1Entity> byComponentId =
-          checkpoint1Repository.findByComponentId(componentId);
-        if (byComponentId.isEmpty()) {
-          return false;
-        }
-
-        Checkpoint1Entity currentCheckpoint = byComponentId.get();
-        currentCheckpoint.setQuantity(
-          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
-        );
-        checkpoint1Repository.save(currentCheckpoint);
-        added = true;
-        break;
-      }
-      case 2 -> {
-        Optional<Checkpoint2Entity> byComponentId =
-          checkpoint2Repository.findByComponentId(componentId);
-        if (byComponentId.isEmpty()) {
-          return false;
-        }
-
-        Checkpoint2Entity currentCheckpoint = byComponentId.get();
-        currentCheckpoint.setQuantity(
-          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
-        );
-        checkpoint2Repository.save(currentCheckpoint);
-        added = true;
-        break;
-      }
-      case 9 -> {
-        Optional<Checkpoint9Entity> byComponentId =
-          checkpoint9Repository.findByComponentId(componentId);
-        if (byComponentId.isEmpty()) {
-          return false;
-        }
-
-        Checkpoint9Entity currentCheckpoint = byComponentId.get();
-        currentCheckpoint.setQuantity(
-          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
-        );
-        checkpoint9Repository.save(currentCheckpoint);
-        added = true;
-        break;
-      }
-      case 10 -> {
-        Optional<Checkpoint10Entity> byComponentId =
-          checkpoint10Repository.findByComponentId(componentId);
-        if (byComponentId.isEmpty()) {
-          return false;
-        }
-
-        Checkpoint10Entity currentCheckpoint = byComponentId.get();
-        currentCheckpoint.setQuantity(
-          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
-        );
-        checkpoint10Repository.save(currentCheckpoint);
-        added = true;
-        break;
-      }
-      case 11 -> {
-        Optional<Checkpoint11Entity> byComponentId =
-          checkpoint11Repository.findByComponentId(componentId);
-        if (byComponentId.isEmpty()) {
-          return false;
-        }
-
-        Checkpoint11Entity currentCheckpoint = byComponentId.get();
-        currentCheckpoint.setQuantity(
-          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
-        );
-        checkpoint11Repository.save(currentCheckpoint);
-        added = true;
-        break;
-      }
-      case 12 -> {
-        Optional<Checkpoint12Entity> byComponentId =
-          checkpoint12Repository.findByComponentId(componentId);
-        if (byComponentId.isEmpty()) {
-          return false;
-        }
-
-        Checkpoint12Entity currentCheckpoint = byComponentId.get();
-        currentCheckpoint.setQuantity(
-          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
-        );
-        checkpoint12Repository.save(currentCheckpoint);
-        added = true;
-        break;
-      }
-      case 13 -> {
-        Optional<Checkpoint13Entity> byComponentId =
-          checkpoint13Repository.findByComponentId(componentId);
-        if (byComponentId.isEmpty()) {
-          return false;
-        }
-
-        Checkpoint13Entity currentCheckpoint = byComponentId.get();
-        currentCheckpoint.setQuantity(
-          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
-        );
-        checkpoint13Repository.save(currentCheckpoint);
-        added = true;
-        break;
-      }
-      case 19 -> {
-        Optional<Checkpoint19Entity> byComponentId =
-          checkpoint19Repository.findByComponentId(componentId);
-        if (byComponentId.isEmpty()) {
-          return false;
-        }
-
-        Checkpoint19Entity currentCheckpoint = byComponentId.get();
-        currentCheckpoint.setQuantity(
-          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
-        );
-        checkpoint19Repository.save(currentCheckpoint);
-        added = true;
-        break;
-      }
-      case 20 -> {
-        Optional<Checkpoint20Entity> byComponentId =
-          checkpoint20Repository.findByComponentId(componentId);
-        if (byComponentId.isEmpty()) {
-          return false;
-        }
-
-        Checkpoint20Entity currentCheckpoint = byComponentId.get();
-        currentCheckpoint.setQuantity(
-          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
-        );
-        checkpoint20Repository.save(currentCheckpoint);
-        added = true;
-        break;
-      }
-      case 21 -> {
-        Optional<Checkpoint21Entity> byComponentId =
-          checkpoint21Repository.findByComponentId(componentId);
-        if (byComponentId.isEmpty()) {
-          return false;
-        }
-
-        Checkpoint21Entity currentCheckpoint = byComponentId.get();
-        currentCheckpoint.setQuantity(
-          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
-        );
-        checkpoint21Repository.save(currentCheckpoint);
-        added = true;
-        break;
-      }
-      case 27 -> {
-        Optional<Checkpoint27Entity> byComponentId =
-          checkpoint27Repository.findByComponentId(componentId);
-        if (byComponentId.isEmpty()) {
-          return false;
-        }
-
-        Checkpoint27Entity currentCheckpoint = byComponentId.get();
-        currentCheckpoint.setQuantity(
-          currentCheckpoint.getQuantity() + componentRequest.getQuantity()
-        );
-        checkpoint27Repository.save(currentCheckpoint);
-        added = true;
-        break;
-      }
-    }
-
-    if (added) {
-      componentRequest.setVerified(true);
-      masterComponentRequestRepository.save(componentRequest);
-      return true;
-    }
-
-    return false;
-  }
-
-  public Boolean cancelRequest(Long requestId) {
-    // REQUEST EXISTS??
-    Optional<MasterComponentRequestEntity> byRequestId = masterComponentRequestRepository.findById(requestId);
-    if (byRequestId.isEmpty()) {
-      return false;
-    }
-
-    // DELETE REQUEST
-    MasterComponentRequestEntity requestEntity = byRequestId.get();
-    if (requestEntity.getFromType().equals(FROM.LOGIST)) {
-      // SET AVAILABLE IN WAREHOUSE
-      Optional<LogistComponentEntity> byId = logistComponentRepository.findByComponentIdAndLogistId(
-        requestEntity.getComponentId(), requestEntity.getFromId()
-      );
-      if (byId.isEmpty()) {
-        return false;
-      }
-
-      LogistComponentEntity componentsEntity = byId.get();
-      componentsEntity.setQuantity(componentsEntity.getQuantity() + requestEntity.getQuantity());
-      logistComponentRepository.save(componentsEntity);
-
-      masterComponentRequestRepository.delete(requestEntity);
-      return true;
-    }
-
-    if (requestEntity.getFromType().equals(FROM.MASTER)) {
-      Long fromMasterId = requestEntity.getFromId();
-      Optional<MasterLineEntity> byMasterId =
-        masterLineRepository.findByMasterId(fromMasterId);
-      if (byMasterId.isEmpty()) {
-        return false;
-      }
-
-      Long compositeId = requestEntity.getComponentId();
-      List<ComponentsGroupEntity> byCompositeId = componentsGroupRepository.findByCompositeId(compositeId);
-
-      MasterLineEntity masterLineEntity = byMasterId.get();
-      Integer lineId = masterLineEntity.getLineId();
-      switch (lineId) {
-        case 1 -> {
-          List<Checkpoint1Entity> savedComponentQuantities = new ArrayList<>();
-          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
-            Optional<Checkpoint1Entity> byComponentId = checkpoint1Repository.findByComponentId(componentsGroupEntity.getComponentId());
-            if (byComponentId.isEmpty()) {
-              return false;
-            }
-
-            Checkpoint1Entity checkpointEntity = byComponentId.get();
-            double addedQuantity = checkpointEntity.getQuantity() + requestEntity.getQuantity();
-            checkpointEntity.setQuantity(addedQuantity);
-
-            savedComponentQuantities.add(checkpointEntity);
-          }
-
-          for (Checkpoint1Entity savedComponentQuantity : savedComponentQuantities) {
-            checkpoint1Repository.save(savedComponentQuantity);
-          }
-          return true;
-        }
-
-        case 2 -> {
-          List<Checkpoint2Entity> savedComponentQuantities = new ArrayList<>();
-          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
-            Optional<Checkpoint2Entity> byComponentId = checkpoint2Repository.findByComponentId(componentsGroupEntity.getComponentId());
-            if (byComponentId.isEmpty()) {
-              return false;
-            }
-
-            Checkpoint2Entity checkpointEntity = byComponentId.get();
-            double addedQuantity = checkpointEntity.getQuantity() + (componentsGroupEntity.getQuantity() * requestEntity.getQuantity());
-            checkpointEntity.setQuantity(addedQuantity);
-
-            savedComponentQuantities.add(checkpointEntity);
-          }
-
-          for (Checkpoint2Entity savedComponentQuantity : savedComponentQuantities) {
-            checkpoint2Repository.save(savedComponentQuantity);
-          }
-          return true;
-        }
-
-        case 9 -> {
-          List<Checkpoint9Entity> savedComponentQuantities = new ArrayList<>();
-          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
-            Optional<Checkpoint9Entity> byComponentId = checkpoint9Repository.findByComponentId(componentsGroupEntity.getComponentId());
-            if (byComponentId.isEmpty()) {
-              return false;
-            }
-
-            Checkpoint9Entity checkpointEntity = byComponentId.get();
-            double addedQuantity = checkpointEntity.getQuantity() + requestEntity.getQuantity();
-            checkpointEntity.setQuantity(addedQuantity);
-
-            savedComponentQuantities.add(checkpointEntity);
-          }
-
-          for (Checkpoint9Entity savedComponentQuantity : savedComponentQuantities) {
-            checkpoint9Repository.save(savedComponentQuantity);
-          }
-
-          return true;
-        }
-        case 10 -> {
-          List<Checkpoint10Entity> savedComponentQuantities = new ArrayList<>();
-          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
-            Optional<Checkpoint10Entity> byComponentId = checkpoint10Repository.findByComponentId(componentsGroupEntity.getComponentId());
-            if (byComponentId.isEmpty()) {
-              return false;
-            }
-
-            Checkpoint10Entity checkpointEntity = byComponentId.get();
-            double addedQuantity = checkpointEntity.getQuantity() + requestEntity.getQuantity();
-            checkpointEntity.setQuantity(addedQuantity);
-
-            savedComponentQuantities.add(checkpointEntity);
-          }
-
-          for (Checkpoint10Entity savedComponentQuantity : savedComponentQuantities) {
-            checkpoint10Repository.save(savedComponentQuantity);
-          }
-
-          return true;
-        }
-
-        case 11 -> {
-          List<Checkpoint11Entity> savedComponentQuantities = new ArrayList<>();
-          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
-            Optional<Checkpoint11Entity> byComponentId = checkpoint11Repository.findByComponentId(componentsGroupEntity.getComponentId());
-            if (byComponentId.isEmpty()) {
-              return false;
-            }
-
-            Checkpoint11Entity checkpointEntity = byComponentId.get();
-            double addedQuantity = checkpointEntity.getQuantity() + requestEntity.getQuantity();
-            checkpointEntity.setQuantity(addedQuantity);
-            savedComponentQuantities.add(checkpointEntity);
-          }
-
-          for (Checkpoint11Entity savedComponentQuantity : savedComponentQuantities) {
-            checkpoint11Repository.save(savedComponentQuantity);
-          }
-
-          return true;
-        }
-
-        case 12 -> {
-          List<Checkpoint12Entity> savedComponentQuantities = new ArrayList<>();
-          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
-            Optional<Checkpoint12Entity> byComponentId = checkpoint12Repository.findByComponentId(componentsGroupEntity.getComponentId());
-            if (byComponentId.isEmpty()) {
-              return false;
-            }
-
-            Checkpoint12Entity checkpointEntity = byComponentId.get();
-            double addedQuantity = checkpointEntity.getQuantity() + requestEntity.getQuantity();
-            checkpointEntity.setQuantity(addedQuantity);
-            savedComponentQuantities.add(checkpointEntity);
-          }
-
-          for (Checkpoint12Entity savedComponentQuantity : savedComponentQuantities) {
-            checkpoint12Repository.save(savedComponentQuantity);
-          }
-
-          return true;
-        }
-
-        case 13 -> {
-          List<Checkpoint13Entity> savedComponentQuantities = new ArrayList<>();
-          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
-            Optional<Checkpoint13Entity> byComponentId = checkpoint13Repository.findByComponentId(componentsGroupEntity.getComponentId());
-            if (byComponentId.isEmpty()) {
-              return false;
-            }
-
-            Checkpoint13Entity checkpointEntity = byComponentId.get();
-            double addedQuantity = checkpointEntity.getQuantity() + requestEntity.getQuantity();
-            checkpointEntity.setQuantity(addedQuantity);
-            savedComponentQuantities.add(checkpointEntity);
-          }
-
-          for (Checkpoint13Entity savedComponentQuantity : savedComponentQuantities) {
-            checkpoint13Repository.save(savedComponentQuantity);
-          }
-
-          return true;
-        }
-        case 19 -> {
-          List<Checkpoint19Entity> savedComponentQuantities = new ArrayList<>();
-          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
-            Optional<Checkpoint19Entity> byComponentId = checkpoint19Repository.findByComponentId(componentsGroupEntity.getComponentId());
-            if (byComponentId.isEmpty()) {
-              return false;
-            }
-
-            Checkpoint19Entity checkpointEntity = byComponentId.get();
-            double addedQuantity = checkpointEntity.getQuantity() + requestEntity.getQuantity();
-            checkpointEntity.setQuantity(addedQuantity);
-            savedComponentQuantities.add(checkpointEntity);
-          }
-
-          for (Checkpoint19Entity savedComponentQuantity : savedComponentQuantities) {
-            checkpoint19Repository.save(savedComponentQuantity);
-          }
-          return true;
-        }
-
-        case 20 -> {
-          List<Checkpoint20Entity> savedComponentQuantities = new ArrayList<>();
-          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
-            Optional<Checkpoint20Entity> byComponentId = checkpoint20Repository.findByComponentId(componentsGroupEntity.getComponentId());
-            if (byComponentId.isEmpty()) {
-              return false;
-            }
-
-            Checkpoint20Entity checkpoint20Entity = byComponentId.get();
-            double addedQuantity = checkpoint20Entity.getQuantity() + requestEntity.getQuantity();
-            checkpoint20Entity.setQuantity(addedQuantity);
-            savedComponentQuantities.add(checkpoint20Entity);
-          }
-
-          for (Checkpoint20Entity savedComponentQuantity : savedComponentQuantities) {
-            checkpoint20Repository.save(savedComponentQuantity);
-          }
-
-          return true;
-        }
-
-        case 21 -> {
-          List<Checkpoint21Entity> savedComponentQuantities = new ArrayList<>();
-          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
-            Optional<Checkpoint21Entity> byComponentId = checkpoint21Repository.findByComponentId(componentsGroupEntity.getComponentId());
-            if (byComponentId.isEmpty()) {
-              return false;
-            }
-
-            Checkpoint21Entity checkpoint21Entity = byComponentId.get();
-            double addedQuantity = checkpoint21Entity.getQuantity() + requestEntity.getQuantity();
-            checkpoint21Entity.setQuantity(addedQuantity);
-            savedComponentQuantities.add(checkpoint21Entity);
-          }
-
-          for (Checkpoint21Entity savedComponentQuantity : savedComponentQuantities) {
-            checkpoint21Repository.save(savedComponentQuantity);
-          }
-
-          return true;
-        }
-        case 27 -> {
-          List<Checkpoint27Entity> savedComponentQuantities = new ArrayList<>();
-          for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
-            Optional<Checkpoint27Entity> byComponentId = checkpoint27Repository.findByComponentId(componentsGroupEntity.getComponentId());
-            if (byComponentId.isEmpty()) {
-              return false;
-            }
-
-            Checkpoint27Entity checkpoint27Entity = byComponentId.get();
-            double addedQuantity = checkpoint27Entity.getQuantity() + requestEntity.getQuantity();
-            checkpoint27Entity.setQuantity(addedQuantity);
-            savedComponentQuantities.add(checkpoint27Entity);
-          }
-
-          for (Checkpoint27Entity savedComponentQuantity : savedComponentQuantities) {
-            checkpoint27Repository.save(savedComponentQuantity);
-          }
-
-          return true;
-        }
-      }
-      return true;
-    }
-
-    return false;
   }
 
   public List<MasterComponentInfoDTO> getComponentsInfoByMasterId(Long masterId) {
@@ -1594,7 +1632,6 @@ public class MasterComponentRequestService {
 
     return null;
   }
-
 
   private void createRequest(Long masterId, Long fromId, FROM fromType, Long componentId, Double quantity) {
     MasterComponentRequestEntity componentRequest = new MasterComponentRequestEntity();

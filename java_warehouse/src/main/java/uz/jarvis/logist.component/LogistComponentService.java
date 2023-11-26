@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import uz.jarvis.components.ComponentsEntity;
 import uz.jarvis.components.ComponentsRepository;
+import uz.jarvis.exchangeHistory.ExchangeHistoryService;
+import uz.jarvis.exchangeHistory.ExchangeType;
 import uz.jarvis.logist.component.dto.LogistComponentInfoDTO;
 import uz.jarvis.logist.component.dto.LogistComponentRequestSumbitDTO;
 import uz.jarvis.logist.component.dto.LogistInfoDTO;
@@ -23,6 +25,7 @@ public class LogistComponentService {
   private final LogistComponentRepository logistComponentRepository;
   private final ComponentsRepository componentsRepository;
   private final UserRepository userRepository;
+  private final ExchangeHistoryService exchangeHistoryService;
 
   public Boolean submitComponent(LogistComponentRequestSumbitDTO dto) {
     // IS COMPONENT EXISTS??
