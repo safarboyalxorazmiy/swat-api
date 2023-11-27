@@ -3,6 +3,8 @@ package uz.jarvis.fridgePlan;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import uz.jarvis.models.ModelEntity;
+import uz.jarvis.user.User;
 
 @Getter
 @Setter
@@ -13,8 +15,12 @@ public class FridgePlanEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(unique = true)
+  @Column(name = "model_id", unique = true)
   private Long modelId;
+
+  @ManyToOne
+  @JoinColumn(name = "model_id", insertable = false, updatable = false)
+  private ModelEntity model;
 
   @Column
   private Long plan;

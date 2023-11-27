@@ -3,6 +3,8 @@ package uz.jarvis.fridgePlan;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -52,6 +54,26 @@ public class FridgePlanService {
       return true;
     }
 
-    return null;
+    return false;
+  }
+
+  public List<FridgePlanInfoDTO> findAll() {
+    List<FridgePlanEntity> all = fridgePlanRepository.findAll();
+    List<FridgePlanInfoDTO> result = new ArrayList<>();
+
+    for (FridgePlanEntity fridgePlanEntity : all) {
+      FridgePlanInfoDTO info = new FridgePlanInfoDTO();
+      info.setId(fridgePlanEntity.getId());
+      info.setPlan(fridgePlanEntity.getPlan());
+      info.setModelId(fridgePlanEntity.getModelId());
+
+      info.setModelName(fridgePlanEntity.getModel().getName());
+      info.setModelCode(fridgePlanEntity.getModel().getCode());
+      info.setModelComment(fridgePlanEntity.getModel().getComment());
+
+      result.add(info);
+    }
+
+    return result;
   }
 }
