@@ -38,6 +38,7 @@ public class FridgePlanService {
       FridgePlanEntity fridgePlanEntity = byModelId.get();
       fridgePlanEntity.setPlan(plan);
       fridgePlanRepository.save(fridgePlanEntity);
+      System.out.println(fridgePlanEntity);
       return true;
     }
 
