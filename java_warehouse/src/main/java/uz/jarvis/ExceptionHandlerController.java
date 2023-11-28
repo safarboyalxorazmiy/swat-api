@@ -12,6 +12,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import uz.jarvis.config.jwt.JwtParseException;
 import uz.jarvis.config.jwt.JwtUsernameException;
+import uz.jarvis.master.component.checkpoint.LineNotFoundException;
 import uz.jarvis.master.component.exception.ComponentNotFoundException;
 import uz.jarvis.master.component.exception.QuantityNotEnoughException;
 
@@ -53,6 +54,11 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler({ComponentNotFoundException.class})
   private ResponseEntity<?> handler(ComponentNotFoundException e) {
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+  }
+
+  @ExceptionHandler({LineNotFoundException.class})
+  private ResponseEntity<?> handler(LineNotFoundException e) {
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
   }
 }
