@@ -6,15 +6,14 @@ import uz.jarvis.components.ComponentsEntity;
 import uz.jarvis.components.ComponentsRepository;
 import uz.jarvis.components.group.ComponentsGroupEntity;
 import uz.jarvis.components.group.ComponentsGroupRepository;
-import uz.jarvis.components.group.dtos.CompositeComponentInfoDTO;
 import uz.jarvis.exchangeHistory.ExchangeHistoryService;
 import uz.jarvis.exchangeHistory.ExchangeType;
 import uz.jarvis.lines.entity.*;
 import uz.jarvis.lines.repository.*;
 import uz.jarvis.logist.component.LogistComponentEntity;
 import uz.jarvis.logist.component.LogistComponentRepository;
-import uz.jarvis.logist.component.dto.LogistComponentInfoDTO;
 import uz.jarvis.master.component.dto.MasterComponentInfoDTO;
+import uz.jarvis.master.component.dto.MasterCompositeCreateDTO;
 import uz.jarvis.master.component.dto.MasterComponentRequestSumbitDTO;
 import uz.jarvis.master.component.dto.MasterInfoDTO;
 import uz.jarvis.master.component.exception.QuantityNotEnoughException;
@@ -110,11 +109,11 @@ public class MasterComponentRequestService {
           }
 
           Checkpoint1Entity checkpointEntity = byComponentId.get();
-          double minusedQuantity = checkpointEntity.getQuantity() - dto.getQuantity();
-          if (minusedQuantity < 0) {
+          double subtractedQuantity = checkpointEntity.getQuantity() - dto.getQuantity();
+          if (subtractedQuantity < 0) {
             throw new QuantityNotEnoughException("Miqdor yetarli emas.");
           }
-          checkpointEntity.setQuantity(minusedQuantity);
+          checkpointEntity.setQuantity(subtractedQuantity);
 
           savedComponentQuantities.add(checkpointEntity);
         }
@@ -136,11 +135,11 @@ public class MasterComponentRequestService {
           }
 
           Checkpoint2Entity checkpointEntity = byComponentId.get();
-          double minusedQuantity = checkpointEntity.getQuantity() - (componentsGroupEntity.getQuantity() * dto.getQuantity());
-          if (minusedQuantity < 0) {
+          double subtractedQuantity = checkpointEntity.getQuantity() - (componentsGroupEntity.getQuantity() * dto.getQuantity());
+          if (subtractedQuantity < 0) {
             throw new QuantityNotEnoughException("Miqdor yetarli emas.");
           }
-          checkpointEntity.setQuantity(minusedQuantity);
+          checkpointEntity.setQuantity(subtractedQuantity);
 
           savedComponentQuantities.add(checkpointEntity);
         }
@@ -162,12 +161,12 @@ public class MasterComponentRequestService {
           }
 
           Checkpoint9Entity checkpointEntity = byComponentId.get();
-          double minusedQuantity = checkpointEntity.getQuantity() - dto.getQuantity();
-          if (minusedQuantity < 0) {
+          double subtractedQuantity = checkpointEntity.getQuantity() - dto.getQuantity();
+          if (subtractedQuantity < 0) {
             throw new QuantityNotEnoughException("Miqdor yetarli emas.");
           }
 
-          checkpointEntity.setQuantity(minusedQuantity);
+          checkpointEntity.setQuantity(subtractedQuantity);
 
           savedComponentQuantities.add(checkpointEntity);
         }
@@ -189,12 +188,12 @@ public class MasterComponentRequestService {
           }
 
           Checkpoint10Entity checkpointEntity = byComponentId.get();
-          double minusedQuantity = checkpointEntity.getQuantity() - dto.getQuantity();
-          if (minusedQuantity < 0) {
+          double subtractedQuantity = checkpointEntity.getQuantity() - dto.getQuantity();
+          if (subtractedQuantity < 0) {
             throw new QuantityNotEnoughException("Miqdor yetarli emas.");
           }
 
-          checkpointEntity.setQuantity(minusedQuantity);
+          checkpointEntity.setQuantity(subtractedQuantity);
           savedComponentQuantities.add(checkpointEntity);
         }
 
@@ -214,12 +213,12 @@ public class MasterComponentRequestService {
           }
 
           Checkpoint11Entity checkpointEntity = byComponentId.get();
-          double minusedQuantity = checkpointEntity.getQuantity() - dto.getQuantity();
-          if (minusedQuantity < 0) {
+          double subtractedQuantity = checkpointEntity.getQuantity() - dto.getQuantity();
+          if (subtractedQuantity < 0) {
             throw new QuantityNotEnoughException("Miqdor yetarli emas.");
           }
 
-          checkpointEntity.setQuantity(minusedQuantity);
+          checkpointEntity.setQuantity(subtractedQuantity);
           savedComponentQuantities.add(checkpointEntity);
         }
 
@@ -240,12 +239,12 @@ public class MasterComponentRequestService {
           }
 
           Checkpoint12Entity checkpointEntity = byComponentId.get();
-          double minusedQuantity = checkpointEntity.getQuantity() - dto.getQuantity();
-          if (minusedQuantity < 0) {
+          double subtractedQuantity = checkpointEntity.getQuantity() - dto.getQuantity();
+          if (subtractedQuantity < 0) {
             throw new QuantityNotEnoughException("Miqdor yetarli emas.");
           }
 
-          checkpointEntity.setQuantity(minusedQuantity);
+          checkpointEntity.setQuantity(subtractedQuantity);
           savedComponentQuantities.add(checkpointEntity);
         }
 
@@ -266,12 +265,12 @@ public class MasterComponentRequestService {
           }
 
           Checkpoint13Entity checkpointEntity = byComponentId.get();
-          double minusedQuantity = checkpointEntity.getQuantity() - dto.getQuantity();
-          if (minusedQuantity < 0) {
+          double subtractedQuantity = checkpointEntity.getQuantity() - dto.getQuantity();
+          if (subtractedQuantity < 0) {
             throw new QuantityNotEnoughException("Miqdor yetarli emas.");
           }
 
-          checkpointEntity.setQuantity(minusedQuantity);
+          checkpointEntity.setQuantity(subtractedQuantity);
           savedComponentQuantities.add(checkpointEntity);
         }
 
@@ -292,12 +291,12 @@ public class MasterComponentRequestService {
           }
 
           Checkpoint19Entity checkpointEntity = byComponentId.get();
-          double minusedQuantity = checkpointEntity.getQuantity() - dto.getQuantity();
-          if (minusedQuantity < 0) {
+          double subtractedQuantity = checkpointEntity.getQuantity() - dto.getQuantity();
+          if (subtractedQuantity < 0) {
             throw new QuantityNotEnoughException("Miqdor yetarli emas.");
           }
 
-          checkpointEntity.setQuantity(minusedQuantity);
+          checkpointEntity.setQuantity(subtractedQuantity);
           savedComponentQuantities.add(checkpointEntity);
         }
 
@@ -318,12 +317,12 @@ public class MasterComponentRequestService {
           }
 
           Checkpoint20Entity checkpoint20Entity = byComponentId.get();
-          double minusedQuantity = checkpoint20Entity.getQuantity() - dto.getQuantity();
-          if (minusedQuantity < 0) {
+          double subtractedQuantity = checkpoint20Entity.getQuantity() - dto.getQuantity();
+          if (subtractedQuantity < 0) {
             throw new QuantityNotEnoughException("Miqdor yetarli emas.");
           }
 
-          checkpoint20Entity.setQuantity(minusedQuantity);
+          checkpoint20Entity.setQuantity(subtractedQuantity);
           savedComponentQuantities.add(checkpoint20Entity);
         }
 
@@ -344,12 +343,12 @@ public class MasterComponentRequestService {
           }
 
           Checkpoint21Entity checkpoint21Entity = byComponentId.get();
-          double minusedQuantity = checkpoint21Entity.getQuantity() - dto.getQuantity();
-          if (minusedQuantity < 0) {
+          double subtractedQuantity = checkpoint21Entity.getQuantity() - dto.getQuantity();
+          if (subtractedQuantity < 0) {
             throw new QuantityNotEnoughException("Miqdor yetarli emas.");
           }
 
-          checkpoint21Entity.setQuantity(minusedQuantity);
+          checkpoint21Entity.setQuantity(subtractedQuantity);
           savedComponentQuantities.add(checkpoint21Entity);
         }
 
@@ -370,12 +369,12 @@ public class MasterComponentRequestService {
           }
 
           Checkpoint27Entity checkpoint27Entity = byComponentId.get();
-          double minusedQuantity = checkpoint27Entity.getQuantity() - dto.getQuantity();
-          if (minusedQuantity < 0) {
+          double subtractedQuantity = checkpoint27Entity.getQuantity() - dto.getQuantity();
+          if (subtractedQuantity < 0) {
             throw new QuantityNotEnoughException("Miqdor yetarli emas.");
           }
 
-          checkpoint27Entity.setQuantity(minusedQuantity);
+          checkpoint27Entity.setQuantity(subtractedQuantity);
           savedComponentQuantities.add(checkpoint27Entity);
         }
 
@@ -888,8 +887,6 @@ public class MasterComponentRequestService {
 
     return false;
   }
-
-
 
   public List<MasterInfoDTO> getAllMastersInfo() {
     List<User> byRoleLogist = userRepository.findByRole(Role.MASTER);

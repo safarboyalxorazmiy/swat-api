@@ -56,7 +56,7 @@ public class SecurityConfiguration {
         "/logist/component/**"
       )
       .permitAll()
-
+      .requestMatchers("/components/get/all/composite").permitAll()
       /*.requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
 
 
