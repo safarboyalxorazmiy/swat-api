@@ -53,7 +53,8 @@ public class SecurityConfiguration {
         "/master/**",
         "/master/component/**",
         "/master/line/**",
-        "/logist/component/**"
+        "/logist/component/**",
+          "/test"
       )
       .permitAll()
       .requestMatchers("/components/get/all/composite").permitAll()
