@@ -20,6 +20,7 @@ import java.util.Optional;
 public class MasterCompositeService {
   private final Checkpoint1Repository checkpoint1Repository;
   private final Checkpoint2Repository checkpoint2Repository;
+  private final Checkpoint9Repository checkpoint9Repository;
   private final Checkpoint10Repository checkpoint10Repository;
   private final Checkpoint11Repository checkpoint11Repository;
   private final Checkpoint12Repository checkpoint12Repository;
@@ -153,8 +154,8 @@ public class MasterCompositeService {
 
       case 9 -> {
         // LINYADA SHU COMPOSITE BORMI O'ZI??
-        Optional<Checkpoint2Entity> byLineCompositeId =
-            checkpoint2Repository.findByComponentId(compositeId);
+        Optional<Checkpoint9Entity> byLineCompositeId =
+            checkpoint9Repository.findByComponentId(compositeId);
 
         if (byLineCompositeId.isEmpty()) {
           break;
@@ -162,12 +163,12 @@ public class MasterCompositeService {
         // =========================================
 
         // OLDIN COMPONENTLARINI AYIRISH
-        List<Checkpoint2Entity> savedComponentQuantities =
+        List<Checkpoint9Entity> savedComponentQuantities =
             new ArrayList<>();
 
         for (ComponentsGroupEntity componentsGroupEntity : byCompositeId) {
-          Optional<Checkpoint2Entity> byComponentId =
-              checkpoint2Repository.findByComponentId(
+          Optional<Checkpoint9Entity> byComponentId =
+              checkpoint9Repository.findByComponentId(
                   componentsGroupEntity.getComponentId()
               );
 
@@ -175,7 +176,7 @@ public class MasterCompositeService {
             break;
           }
 
-          Checkpoint2Entity checkpointEntity = byComponentId.get();
+          Checkpoint9Entity checkpointEntity = byComponentId.get();
 
           double subtractedQuantity =
               checkpointEntity.getQuantity() - componentsGroupEntity.getQuantity();
@@ -191,13 +192,13 @@ public class MasterCompositeService {
         // =========================================
 
         //  VA COMPOSITELARNI QO'SHISH!
-        Checkpoint2Entity composite = byLineCompositeId.get();
+        Checkpoint9Entity composite = byLineCompositeId.get();
         composite.setQuantity(
             composite.getQuantity() + dto.getQuantity()
         );
         savedComponentQuantities.add(composite);
 
-        checkpoint2Repository.saveAll(savedComponentQuantities);
+        checkpoint9Repository.saveAll(savedComponentQuantities);
         // =========================================
         result = true;
       }
