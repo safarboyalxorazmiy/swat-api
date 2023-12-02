@@ -592,29 +592,36 @@ public class MasterComponentRequestService {
   }
 
   public Boolean cancelRequest(Long requestId) {
-    // REQUEST EXISTS??
+    // REQUEST EXISTS??.
     Optional<MasterComponentRequestEntity> byRequestId = masterComponentRequestRepository.findById(requestId);
     if (byRequestId.isEmpty()) {
       return false;
     }
 
-    // DELETE REQUEST
+    // REQUESTNI OLIB KELISH.
     MasterComponentRequestEntity componentRequest = byRequestId.get();
+
+    // MAHSULOT KIMDAN KELGAN?? LOGISTDANMI YOKI MASTERDAN??.
+
+    // LOGIST
     if (componentRequest.getFromType().equals(FROM.LOGIST)) {
-      // SET AVAILABLE IN WAREHOUSE
       Optional<LogistComponentEntity> byId = logistComponentRepository.findByComponentIdAndLogistId(
         componentRequest.getComponentId(), componentRequest.getFromId()
       );
+
       if (byId.isEmpty()) {
         return false;
       }
 
+      // MAHSULOTNI LOGIST PROFILIGA OBORIB QAYTARIB QO'SHIB QO'YISH.
       LogistComponentEntity componentsEntity = byId.get();
       componentsEntity.setQuantity(componentsEntity.getQuantity() + componentRequest.getQuantity());
       logistComponentRepository.save(componentsEntity);
 
+      // REQUESTNI BUTUNLAY O'CHIRIB TASHLASH.
       masterComponentRequestRepository.delete(componentRequest);
 
+      // TARIXGA YOZIB QO'YISH
       exchangeHistoryService.create(
         ExchangeType.REQUEST_CANCELED,
         componentRequest.getFromId(),
@@ -624,7 +631,8 @@ public class MasterComponentRequestService {
       return true;
     }
 
-    if (componentRequest.getFromType().equals(FROM.MASTER)) {
+    // MASTER
+    else if (componentRequest.getFromType().equals(FROM.MASTER)) {
       Long fromMasterId = componentRequest.getFromId();
       Optional<MasterLineEntity> byMasterId =
         masterLineRepository.findByMasterId(fromMasterId);
@@ -635,6 +643,7 @@ public class MasterComponentRequestService {
       Long compositeId = componentRequest.getComponentId();
       List<ComponentsGroupEntity> byCompositeId = componentsGroupRepository.findByCompositeId(compositeId);
 
+      // MASTERNING LINYASIGA YA'NI CHECKPOINTGA OBORIB QO'SHIB QO'YISH.
       MasterLineEntity masterLineEntity = byMasterId.get();
       Integer lineId = masterLineEntity.getLineId();
       Boolean result = false;
@@ -875,6 +884,7 @@ public class MasterComponentRequestService {
       }
 
       if (result) {
+        // TARIXGA QO'SHIB QO'YISH.
         exchangeHistoryService.create(
           ExchangeType.REQUEST_CANCELED,
           componentRequest.getFromId(),
