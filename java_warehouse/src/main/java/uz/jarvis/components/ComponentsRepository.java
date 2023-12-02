@@ -8,4 +8,5 @@ import java.util.List;
 @Repository
 public interface ComponentsRepository extends JpaRepository<ComponentsEntity, Long> {
   List<ComponentsEntity> findByIsMultipleTrue();
+  List<ComponentsEntity> findByIsMultipleFalse();
 }

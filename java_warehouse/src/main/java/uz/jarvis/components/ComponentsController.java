@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/components")
+@RequestMapping("/api/v1/components")
 @RequiredArgsConstructor
 public class ComponentsController {
   private final ComponentsService componentsService;
@@ -19,6 +19,12 @@ public class ComponentsController {
   public ResponseEntity<List<CompositeDTO>> getComposites() {
     return ResponseEntity.ok(componentsService.getComposites());
   }
+
+  @GetMapping("/get/all")
+  public ResponseEntity<List<ComponentInfoDTO>> getComponents() {
+    return ResponseEntity.ok(componentsService.getComponents());
+  }
+
 
 
 }

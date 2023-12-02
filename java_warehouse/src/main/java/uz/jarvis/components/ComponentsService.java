@@ -25,4 +25,26 @@ public class ComponentsService {
 
     return result;
   }
+
+  public List<ComponentInfoDTO> getComponents() {
+    List<ComponentsEntity> byIsMultipleTrue = componentsRepository.findByIsMultipleFalse();
+    List<ComponentInfoDTO> result = new ArrayList<>();
+    for (ComponentsEntity entity : byIsMultipleTrue) {
+      ComponentInfoDTO dto = new ComponentInfoDTO(
+          entity.getId(),
+          entity.getCode(),
+          entity.getName(),
+          entity.getCheckpoint(),
+          entity.getUnit(), entity.getSpecs(),
+          entity.getStatus(), entity.getPhoto(),
+          entity.getTime(), entity.getType(),
+          entity.getWeight(), entity.getAvailable(),
+          entity.getInner_code(), entity.getIncome(),
+          entity.getIsMultiple()
+      );
+      result.add(dto);
+    }
+
+    return result;
+  }
 }
