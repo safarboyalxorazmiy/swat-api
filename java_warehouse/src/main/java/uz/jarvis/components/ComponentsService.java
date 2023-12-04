@@ -2,6 +2,7 @@ package uz.jarvis.components;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import uz.jarvis.composite.CompositeCreateDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,5 +47,10 @@ public class ComponentsService {
     }
 
     return result;
+  }
+
+  public Boolean create(CompositeCreateDTO dto) {
+
+    return true;
   }
 }
