@@ -25,7 +25,7 @@ public class ComponentsEntity {
   private String name;
 
   @Column
-  private Long checkpoint;
+  private Integer checkpoint;
 
   @Column
   private String unit;
@@ -49,18 +49,18 @@ public class ComponentsEntity {
   private Double weight;
 
   @Column
-  private Double available;
+  private Double available = 0.0;
 
   @Column
   private String inner_code;
 
   @Column
-  private Integer income;
+  private Integer income = 0;
 
   @Column(nullable = false, columnDefinition = "boolean default false", updatable = true)
   private Boolean isMultiple;
 
-  public ComponentsEntity(String code, String name, Long checkpoint, String unit, String specs, Integer status, String photo, LocalDateTime time, Integer type, Double weight, Double available, String inner_code, Integer income, Boolean isMultiple) {
+  public ComponentsEntity(String code, String name, Integer checkpoint, String unit, String specs, Integer status, String photo, LocalDateTime time, Integer type, Double weight, String inner_code, Boolean isMultiple) {
     this.code = code;
     this.name = name;
     this.checkpoint = checkpoint;
@@ -71,9 +71,7 @@ public class ComponentsEntity {
     this.time = time;
     this.type = type;
     this.weight = weight;
-    this.available = available;
     this.inner_code = inner_code;
-    this.income = income;
     this.isMultiple = isMultiple;
   }
 }

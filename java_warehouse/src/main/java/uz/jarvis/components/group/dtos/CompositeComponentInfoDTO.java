@@ -9,6 +9,6 @@ public class CompositeComponentInfoDTO {
   private Long id;
   private String code;
   private String name;
-  private Long checkpoint;
+  private Integer checkpoint;
   private Double quantity;
 }

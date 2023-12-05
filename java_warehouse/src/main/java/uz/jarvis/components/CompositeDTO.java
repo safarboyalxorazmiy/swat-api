@@ -9,5 +9,5 @@ public class CompositeDTO {
   private Long id;
   private String code;
   private String name;
-  private Long checkpoint;
+  private Integer checkpoint;
 }

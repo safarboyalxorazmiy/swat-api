@@ -13,7 +13,7 @@ public class ComponentInfoDTO {
   private Long id;
   private String code;
   private String name;
-  private Long checkpoint;
+  private Integer checkpoint;
   private String unit;
   private String specs;
   private Integer status;
