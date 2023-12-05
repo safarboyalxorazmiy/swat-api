@@ -25,5 +25,5 @@ public class CompositeCreateDTO {
   private String inner_code;
   private Integer income;
 
-  private List<CompositeComponentCreateDTO> components;
+  private List<ComponentInfoDTO> components;
 }

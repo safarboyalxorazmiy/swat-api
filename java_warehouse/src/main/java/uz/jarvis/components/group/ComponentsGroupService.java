@@ -15,22 +15,6 @@ import java.util.Optional;
 public class ComponentsGroupService {
   private final ComponentsGroupRepository componentsGroupRepository;
 
-  public Boolean create(ComponentsGroupCreateDTO createDTO) {
-    Optional<ComponentsGroupEntity> byCompositeIdAndComponentId = componentsGroupRepository.findByCompositeIdAndComponentId(createDTO.getCompositeId(), createDTO.getComponentId());
-    if (byCompositeIdAndComponentId.isPresent()) {
-      return false;
-    }
-
-    ComponentsGroupEntity componentsGroup = new ComponentsGroupEntity();
-    componentsGroup.setCompositeId(createDTO.getCompositeId());
-    componentsGroup.setComponentId(createDTO.getComponentId());
-    componentsGroup.setQuantity(createDTO.getQuantity());
-    componentsGroupRepository.save(componentsGroup);
-
-    return true;
-  }
-
-
   public List<CompositeComponentInfoDTO> getComponentsByCompositeId(Long compositeId) {
     List<ComponentsGroupEntity> byCompositeId = componentsGroupRepository.findByCompositeId(compositeId);
     List<CompositeComponentInfoDTO> result = new ArrayList<>();

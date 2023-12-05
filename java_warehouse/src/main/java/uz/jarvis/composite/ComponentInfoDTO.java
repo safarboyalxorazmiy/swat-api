@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CompositeComponentCreateDTO {
-  private CompositeCreateDTO component;
+public class ComponentInfoDTO {
+  private Long componentId;
   private Double quantity;
 }

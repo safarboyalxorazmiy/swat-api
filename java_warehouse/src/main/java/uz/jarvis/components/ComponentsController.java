@@ -24,6 +24,4 @@ public class ComponentsController {
   public ResponseEntity<List<ComponentInfoDTO>> getComponents() {
     return ResponseEntity.ok(componentsService.getComponents());
   }
-
-
 }

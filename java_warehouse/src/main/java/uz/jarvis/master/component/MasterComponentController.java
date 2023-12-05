@@ -21,7 +21,6 @@ import java.util.List;
 public class MasterComponentController {
   private final MasterComponentRequestService masterComponentRequestService;
 
-
   @PreAuthorize("permitAll()")
   @PostMapping("/component/submit")
   public ResponseEntity<Boolean> submitComponentRequest(@RequestBody MasterComponentRequestSumbitDTO dto) {

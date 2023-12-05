@@ -15,11 +15,6 @@ import java.util.List;
 public class ComponentGroupController {
   private final ComponentsGroupService componentsGroupService;
 
-  @PostMapping("/create")
-  public ResponseEntity<Boolean> create(@RequestBody ComponentsGroupCreateDTO createDTO) {
-    return ResponseEntity.ok(componentsGroupService.create(createDTO));
-  }
-
   //  DONE (CompositeId orqali unga ketadigan detallarni olish.)
   @GetMapping("/get/{compositeId}")
   public ResponseEntity<List<CompositeComponentInfoDTO>> getComponents(@PathVariable Long compositeId) {

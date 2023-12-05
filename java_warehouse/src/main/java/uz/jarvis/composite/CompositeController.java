@@ -3,7 +3,6 @@ package uz.jarvis.composite;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import uz.jarvis.components.ComponentsService;
 
 @RestController
 @RequestMapping("/api/v1/composite")
@@ -16,7 +15,7 @@ public class CompositeController {
       @RequestBody CompositeCreateDTO dto
   ) {
     return ResponseEntity.ok(
-      compositeService.create(dto)
+        compositeService.create(dto)
     );
   }
 }
