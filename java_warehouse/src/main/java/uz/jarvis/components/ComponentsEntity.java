@@ -1,7 +1,9 @@
 package uz.jarvis.components;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -10,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "components")
+@RequiredArgsConstructor
 public class ComponentsEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,4 +59,21 @@ public class ComponentsEntity {
 
   @Column(nullable = false, columnDefinition = "boolean default false", updatable = true)
   private Boolean isMultiple;
+
+  public ComponentsEntity(String code, String name, Long checkpoint, String unit, String specs, Integer status, String photo, LocalDateTime time, Integer type, Double weight, Double available, String inner_code, Integer income, Boolean isMultiple) {
+    this.code = code;
+    this.name = name;
+    this.checkpoint = checkpoint;
+    this.unit = unit;
+    this.specs = specs;
+    this.status = status;
+    this.photo = photo;
+    this.time = time;
+    this.type = type;
+    this.weight = weight;
+    this.available = available;
+    this.inner_code = inner_code;
+    this.income = income;
+    this.isMultiple = isMultiple;
+  }
 }

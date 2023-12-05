@@ -3,6 +3,7 @@ package uz.jarvis.composite;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import uz.jarvis.components.group.ComponentsGroupCreateDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,7 +12,6 @@ import java.util.List;
 @Setter
 @Builder
 public class CompositeCreateDTO {
-  private Long id;
   private String code;
   private String name;
   private Long checkpoint;
@@ -25,5 +25,5 @@ public class CompositeCreateDTO {
   private String inner_code;
   private Integer income;
 
-  private List<Long> components;
+  private List<CompositeComponentCreateDTO> components;
 }

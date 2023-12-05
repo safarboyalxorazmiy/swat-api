@@ -9,14 +9,14 @@ import uz.jarvis.components.ComponentsService;
 @RequestMapping("/api/v1/composite")
 @RequiredArgsConstructor
 public class CompositeController {
-  private final ComponentsService componentsService;
+  private final CompositeService compositeService;
 
   @PostMapping("/create")
   public ResponseEntity<Boolean> createComposite(
       @RequestBody CompositeCreateDTO dto
   ) {
     return ResponseEntity.ok(
-        componentsService.create(dto)
+      compositeService.create(dto)
     );
   }
 }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import uz.jarvis.composite.CompositeCreateDTO;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,16 +33,16 @@ public class ComponentsService {
     List<ComponentInfoDTO> result = new ArrayList<>();
     for (ComponentsEntity entity : byIsMultipleTrue) {
       ComponentInfoDTO dto = new ComponentInfoDTO(
-          entity.getId(),
-          entity.getCode(),
-          entity.getName(),
-          entity.getCheckpoint(),
-          entity.getUnit(), entity.getSpecs(),
-          entity.getStatus(), entity.getPhoto(),
-          entity.getTime(), entity.getType(),
-          entity.getWeight(), entity.getAvailable(),
-          entity.getInner_code(), entity.getIncome(),
-          entity.getIsMultiple()
+        entity.getId(),
+        entity.getCode(),
+        entity.getName(),
+        entity.getCheckpoint(),
+        entity.getUnit(), entity.getSpecs(),
+        entity.getStatus(), entity.getPhoto(),
+        entity.getTime(), entity.getType(),
+        entity.getWeight(), entity.getAvailable(),
+        entity.getInner_code(), entity.getIncome(),
+        entity.getIsMultiple()
       );
       result.add(dto);
     }
@@ -49,8 +50,5 @@ public class ComponentsService {
     return result;
   }
 
-  public Boolean create(CompositeCreateDTO dto) {
 
-    return true;
-  }
 }
